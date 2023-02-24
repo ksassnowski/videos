@@ -4,147 +4,147 @@
   "timeEvents": [
     {
       "name": "draw-curve",
-      "targetTime": 0
+      "targetTime": 5.294148299559214
     },
     {
       "name": "show-points",
-      "targetTime": 1.5
+      "targetTime": 6.8
     },
     {
       "name": "simpler-curve",
-      "targetTime": 2.9
+      "targetTime": 18.1491267248311
     },
     {
       "name": "hide-curve",
-      "targetTime": 3.9
+      "targetTime": 22.01947896808938
     },
     {
       "name": "highlight-points",
-      "targetTime": 5.4
+      "targetTime": 24.45433641084015
     },
     {
       "name": "ghost-curve",
-      "targetTime": 7.3
+      "targetTime": 26.366666666666667
     },
     {
       "name": "draw-control-polygon-1",
-      "targetTime": 11.8
+      "targetTime": 33.82061556159705
     },
     {
       "name": "draw-control-polygon-2",
-      "targetTime": 12.8
+      "targetTime": 35.6121422622324
     },
     {
       "name": "draw-control-polygon-3",
-      "targetTime": 14.366666666666667
+      "targetTime": 37.34907893688497
     },
     {
       "name": "hide-line-segment-p1p2",
-      "targetTime": 15.966666666666667
+      "targetTime": 47.278705770920034
     },
     {
       "name": "show-line-segment-p1p2",
-      "targetTime": 16.7
+      "targetTime": 52.01793804108585
     },
     {
       "name": "draw-curve-2",
-      "targetTime": 17.4
+      "targetTime": 55.216937718311655
     },
     {
       "name": "show-target-t",
-      "targetTime": 18.4
+      "targetTime": 56.51093612448878
     },
     {
       "name": "show-t",
-      "targetTime": 19.5
+      "targetTime": 59.59250705482116
     },
     {
       "name": "hide-target-t",
-      "targetTime": 20.2
+      "targetTime": 66.96187191963573
     },
     {
       "name": "show-line-segment-ts",
-      "targetTime": 20.966666666666665
+      "targetTime": 71.81097703262142
     },
     {
       "name": "zoom-to-p0-p1",
-      "targetTime": 22.3
+      "targetTime": 77.11407095142953
     },
     {
       "name": "wiggle-point",
-      "targetTime": 24
+      "targetTime": 80.07362561141531
     },
     {
       "name": "show-t-2",
-      "targetTime": 27
+      "targetTime": 83.08333333333333
     },
     {
       "name": "show-percentage-t",
-      "targetTime": 27.5
+      "targetTime": 86.82029813043943
     },
     {
       "name": "t to 0",
-      "targetTime": 28
+      "targetTime": 87.81152059964364
     },
     {
       "name": "t to 0.5",
-      "targetTime": 29.5
+      "targetTime": 89.66752437655052
     },
     {
       "name": "shift-camera",
-      "targetTime": 31
+      "targetTime": 94.71905267403992
     },
     {
       "name": "show-linear-interpolation-text",
-      "targetTime": 32.233333333333334
+      "targetTime": 97.43844931742792
     },
     {
       "name": "show-lerp-function",
-      "targetTime": 33.233333333333334
+      "targetTime": 101.40219780871647
     },
     {
       "name": "show-highlight-lines",
-      "targetTime": 33.93333333333333
+      "targetTime": 108.2374945142054
     },
     {
       "name": "hilarious-zoom",
-      "targetTime": 34.93333333333333
+      "targetTime": 109.25
     },
     {
       "name": "reset-camera",
-      "targetTime": 34.93333333333333
+      "targetTime": 109.25
     },
     {
       "name": "center-lerp",
-      "targetTime": 34.93333333333333
+      "targetTime": 109.25
     },
     {
       "name": "position-lerp",
-      "targetTime": 36.13333333333333
+      "targetTime": 110.45
     },
     {
       "name": "lerp-formula",
-      "targetTime": 37.13333333333333
+      "targetTime": 111.45
     },
     {
       "name": "b-a",
-      "targetTime": 38.13333333333333
+      "targetTime": 112.45
     },
     {
       "name": "multiply-by-t",
-      "targetTime": 39.13333333333333
+      "targetTime": 113.45
     },
     {
       "name": "add-to-a",
-      "targetTime": 40.13333333333333
+      "targetTime": 114.45
     },
     {
       "name": "fade-rect",
-      "targetTime": 41.13333333333333
+      "targetTime": 115.45
     },
     {
       "name": "??",
-      "targetTime": 41.53333333333333
+      "targetTime": 115.85
     }
   ]
 }
