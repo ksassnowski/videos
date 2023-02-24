@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+NC='\033[0m'
+
+if [ $# != 1 ];
+then
+    echo "Usage: build <project>"
+    exit 1
+fi;
+
+mkdir -p videos
+
+project=$1
+
+echo -e "${YELLOW}Building project${NC} ${project}${YELLOW}...${NC}"
+
+(cd output/${project} && \
+    rm -f *.mp4 && \
+    ffmpeg -hide_banner -loglevel error -framerate 60 -pattern_type glob -i '*.png' -c:v libx264 -pix_fmt yuv420p ${project}.mp4)
+
+mv output/${project}/${project}.mp4 videos
+
+echo -e "${GREEN}Finished building videos/${project}.mp4${NC}"
+exit 0
