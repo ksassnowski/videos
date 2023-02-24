@@ -1,0 +1,35 @@
+const palette = {
+  White: '#f2f0e5',
+  Gray1: '#b8b5b9',
+  Gray2: '#868188',
+  Gray3: '#646365',
+  Gray4: '#45444f',
+  Gray5: '#212123',
+  Blue1: '#68c2d3',
+  Blue2: '#a2dcc7',
+  Blue3: '#4b80ca',
+  Indigo1: '#6a536e',
+  Indigo2: '#5f556a',
+  Indigo3: '#4b4158',
+  Indigo4: '#43436a',
+  Indigo5: '#352b42',
+  Sand: '#ede19e',
+  Brown1: '#e5ceb4',
+  Brown2: '#d3a068',
+  Brown3: '#a77b5b',
+  Brown4: '#80493a',
+  Red: '#b45252',
+  Pink: '#cf8acb',
+  Green1: '#8ab060',
+  Green2: '#c2d368',
+  Green3: '#b2b47e',
+  Green4: '#4e584a',
+  Rose: '#edc8c4',
+};
+
+export default {
+  colors: palette,
+  fonts: {
+    pixelBody: 'PixelCode',
+  },
+};

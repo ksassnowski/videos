@@ -1,0 +1,150 @@
+{
+  "version": 1,
+  "seed": 1729759542,
+  "timeEvents": [
+    {
+      "name": "draw-curve",
+      "targetTime": 0
+    },
+    {
+      "name": "show-points",
+      "targetTime": 1.5
+    },
+    {
+      "name": "simpler-curve",
+      "targetTime": 2.9
+    },
+    {
+      "name": "hide-curve",
+      "targetTime": 3.9
+    },
+    {
+      "name": "highlight-points",
+      "targetTime": 5.4
+    },
+    {
+      "name": "ghost-curve",
+      "targetTime": 7.3
+    },
+    {
+      "name": "draw-control-polygon-1",
+      "targetTime": 11.8
+    },
+    {
+      "name": "draw-control-polygon-2",
+      "targetTime": 12.8
+    },
+    {
+      "name": "draw-control-polygon-3",
+      "targetTime": 14.366666666666667
+    },
+    {
+      "name": "hide-line-segment-p1p2",
+      "targetTime": 15.966666666666667
+    },
+    {
+      "name": "show-line-segment-p1p2",
+      "targetTime": 16.7
+    },
+    {
+      "name": "draw-curve-2",
+      "targetTime": 17.4
+    },
+    {
+      "name": "show-target-t",
+      "targetTime": 18.4
+    },
+    {
+      "name": "show-t",
+      "targetTime": 19.5
+    },
+    {
+      "name": "hide-target-t",
+      "targetTime": 20.2
+    },
+    {
+      "name": "show-line-segment-ts",
+      "targetTime": 20.966666666666665
+    },
+    {
+      "name": "zoom-to-p0-p1",
+      "targetTime": 22.3
+    },
+    {
+      "name": "wiggle-point",
+      "targetTime": 24
+    },
+    {
+      "name": "show-t-2",
+      "targetTime": 27
+    },
+    {
+      "name": "show-percentage-t",
+      "targetTime": 27.5
+    },
+    {
+      "name": "t to 0",
+      "targetTime": 28
+    },
+    {
+      "name": "t to 0.5",
+      "targetTime": 29.5
+    },
+    {
+      "name": "shift-camera",
+      "targetTime": 31
+    },
+    {
+      "name": "show-linear-interpolation-text",
+      "targetTime": 32.233333333333334
+    },
+    {
+      "name": "show-lerp-function",
+      "targetTime": 33.233333333333334
+    },
+    {
+      "name": "show-highlight-lines",
+      "targetTime": 33.93333333333333
+    },
+    {
+      "name": "hilarious-zoom",
+      "targetTime": 34.93333333333333
+    },
+    {
+      "name": "reset-camera",
+      "targetTime": 34.93333333333333
+    },
+    {
+      "name": "center-lerp",
+      "targetTime": 34.93333333333333
+    },
+    {
+      "name": "position-lerp",
+      "targetTime": 36.13333333333333
+    },
+    {
+      "name": "lerp-formula",
+      "targetTime": 37.13333333333333
+    },
+    {
+      "name": "b-a",
+      "targetTime": 38.13333333333333
+    },
+    {
+      "name": "multiply-by-t",
+      "targetTime": 39.13333333333333
+    },
+    {
+      "name": "add-to-a",
+      "targetTime": 40.13333333333333
+    },
+    {
+      "name": "fade-rect",
+      "targetTime": 41.13333333333333
+    },
+    {
+      "name": "??",
+      "targetTime": 41.53333333333333
+    }
+  ]
+}
