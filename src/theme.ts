@@ -30,6 +30,8 @@ const palette = {
 export default {
   colors: palette,
   fonts: {
-    pixelBody: 'PixelCode',
+    sans: 'Source Sans Pro',
+    serif: 'Source Serif Pro',
+    mono: 'Operator Mono',
   },
 };

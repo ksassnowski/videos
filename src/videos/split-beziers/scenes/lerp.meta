@@ -1,6 +1,5 @@
 {
   "version": 1,
-  "seed": 1729759542,
   "timeEvents": [
     {
       "name": "draw-curve",
@@ -104,47 +103,60 @@
     },
     {
       "name": "show-highlight-lines",
-      "targetTime": 108.2374945142054
+      "targetTime": 110.44139148410818
     },
     {
       "name": "hilarious-zoom",
-      "targetTime": 109.25
+      "targetTime": 111.72529266735337
     },
     {
       "name": "reset-camera",
-      "targetTime": 109.25
+      "targetTime": 114.29191457579041
     },
     {
       "name": "center-lerp",
-      "targetTime": 109.25
+      "targetTime": 114.94792690691288
     },
     {
       "name": "position-lerp",
-      "targetTime": 110.45
+      "targetTime": 116.16361377718219
     },
     {
       "name": "lerp-formula",
-      "targetTime": 111.45
+      "targetTime": 124.34343512019197
     },
     {
       "name": "b-a",
-      "targetTime": 112.45
+      "targetTime": 128.04343512019196
     },
     {
       "name": "multiply-by-t",
-      "targetTime": 113.45
+      "targetTime": 131.2853628641105
     },
     {
       "name": "add-to-a",
-      "targetTime": 114.45
+      "targetTime": 137.58248051400588
     },
     {
       "name": "fade-rect",
-      "targetTime": 115.45
+      "targetTime": 143.82888918870714
+    },
+    {
+      "name": "reset-camera-2",
+      "targetTime": 154.60270500466925
+    },
+    {
+      "name": "zoom-out",
+      "targetTime": 158.20647723957845
+    },
+    {
+      "name": "show-curve-again",
+      "targetTime": 189.59613454436766
     },
     {
       "name": "??",
-      "targetTime": 115.85
+      "targetTime": 242.30836690089708
     }
-  ]
+  ],
+  "seed": 1729759542
 }

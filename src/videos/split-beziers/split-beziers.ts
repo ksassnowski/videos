@@ -7,6 +7,5 @@ import lerp from './scenes/lerp?scene';
 export default makeProject({
   name: 'split-beziers',
   scenes: [lerp],
-  background: '#141414',
   audio: audio,
 });

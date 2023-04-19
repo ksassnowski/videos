@@ -10,6 +10,8 @@ import {
 import { Vector2, Vector2Signal } from '@motion-canvas/core/lib/types';
 import { RefsProperty, makeRef } from '@motion-canvas/core/lib/utils';
 
+import { PointLabel } from '@common/components/PointLabel';
+
 import theme from '@theme';
 
 import { CubicBezier } from '../components/CubicBezier';
@@ -38,7 +40,7 @@ const handleStyles: CircleProps = {
 };
 
 const pointLabelStyles: TextProps = {
-  fontFamily: theme.fonts.pixelBody,
+  fontFamily: theme.fonts.mono,
   fill: theme.colors.White,
   fontSize: 42,
 };
@@ -98,7 +100,7 @@ export function Bezier({
     container: Layout;
     curve: CubicBezier;
     controlPoints: Circle[];
-    pointLabels: Text[];
+    pointLabels: PointLabel[];
     lines: Line[];
   };
 }) {
@@ -117,21 +119,30 @@ export function Bezier({
 
       <Line
         ref={makeRef(refs['lines'], 0)}
-        points={[points[0], points[2]]}
+        points={() => [
+          refs.controlPoints[0].position(),
+          refs.controlPoints[2].position(),
+        ]}
         end={showLines ? 1 : 0}
         {...lineStyles}
       />
 
       <Line
         ref={makeRef(refs['lines'], 2)}
-        points={[points[2], points[3]]}
+        points={() => [
+          refs.controlPoints[2].position(),
+          refs.controlPoints[3].position(),
+        ]}
         end={drawAllLines ? 1 : 0}
         {...lineStyles}
       />
 
       <Line
         ref={makeRef(refs['lines'], 1)}
-        points={[points[1], points[3]]}
+        points={() => [
+          refs.controlPoints[1].position(),
+          refs.controlPoints[3].position(),
+        ]}
         end={showLines ? 1 : 0}
         {...lineStyles}
       />
@@ -145,10 +156,11 @@ export function Bezier({
             {...(i < 2 ? pointStyles : handleStyles)}
           />
 
-          <Text
+          <PointLabel
             ref={makeRef(refs['pointLabels'], i)}
             text={makeControlPointText(i)}
-            position={() => points[i]().sub(new Vector2(-40, -20))}
+            point={() => refs.controlPoints[i]}
+            buffer={[-40, -20]}
             scale={showLabels ? 1 : 0}
             {...pointLabelStyles}
           />

@@ -2,7 +2,7 @@ import { CameraView } from '@ksassnowski/motion-canvas-camera';
 import { SurroundingRectangle } from '@ksassnowski/motion-canvas-components';
 
 import { makeScene2D } from '@motion-canvas/2d';
-import { Circle, Line, Text } from '@motion-canvas/2d/lib/components';
+import { Circle, Line, Txt } from '@motion-canvas/2d/lib/components';
 import {
   all,
   chain,
@@ -13,19 +13,18 @@ import {
 } from '@motion-canvas/core/lib/flow';
 import { createSignal } from '@motion-canvas/core/lib/signals';
 import { ThreadGenerator } from '@motion-canvas/core/lib/threading';
-import { easeInBack, spring } from '@motion-canvas/core/lib/tweening';
+import { easeInBack, linear, spring } from '@motion-canvas/core/lib/tweening';
 import { Direction, Vector2 } from '@motion-canvas/core/lib/types';
-import {
-  RefsProperty,
-  createRef,
-  debug,
-  makeRef,
-} from '@motion-canvas/core/lib/utils';
+import { createRef, makeRef } from '@motion-canvas/core/lib/utils';
 
+import { Knot } from '@common/components/Knot';
+import { Spline } from '@common/components/Spline';
+import { group } from '@common/utils/group';
 import { nextTo } from '@common/utils/nextTo';
 
 import theme from '@theme';
 
+import { Brace, BraceDirection } from '../components/Brace';
 import { LerpFormula } from '../components/LerpFormula';
 import { Bezier, ControlPoint, makeBezierRefs } from '../utils/drawBezier';
 
@@ -36,33 +35,13 @@ const PointSpring = {
   initialVelocity: 15.0,
 };
 
-function reorderEverything(
-  refs: RefsProperty<typeof Bezier>,
-  points: Circle[],
-) {
-  refs.curve.moveToTop();
-  points.at(-1).moveToTop();
-
-  for (const line of refs.lines) {
-    line.moveToTop();
-  }
-
-  for (const point of points) {
-    point.moveToTop();
-  }
-
-  for (const point of refs.controlPoints) {
-    point.moveToTop();
-  }
-}
-
 export default makeScene2D(function* (view) {
   const camera = createRef<CameraView>();
   const refs = makeBezierRefs();
   const controlPoints: Circle[] = [];
   const lines: Line[] = [];
   const pointOnCurve = createRef<Circle>();
-  const tText = createRef<Text>();
+  const tText = createRef<Txt>();
 
   const bezierControlPoints = [
     Vector2.createSignal([-500, 200]),
@@ -173,18 +152,10 @@ export default makeScene2D(function* (view) {
   yield* refs.curve.end(0, 0.7);
 
   // Position point labels a little better
-  refs.pointLabels[0].position(() =>
-    bezierControlPoints[0]().add(new Vector2(-60, 20)),
-  );
-  refs.pointLabels[1].position(() =>
-    bezierControlPoints[1]().add(new Vector2(60, 20)),
-  );
-  refs.pointLabels[2].position(() =>
-    bezierControlPoints[2]().add(new Vector2(-60, -40)),
-  );
-  refs.pointLabels[3].position(() =>
-    bezierControlPoints[3]().add(new Vector2(60, -40)),
-  );
+  refs.pointLabels[0].buffer([-60, 20]);
+  refs.pointLabels[1].buffer([60, 20]);
+  refs.pointLabels[2].buffer([-60, -40]);
+  refs.pointLabels[3].buffer([60, -40]);
 
   yield* waitUntil('draw-control-polygon-1');
   yield* sequence(
@@ -225,7 +196,7 @@ export default makeScene2D(function* (view) {
   t(0.5);
   refs.container.add(
     <>
-      <Text
+      <Txt
         ref={tText}
         fontFamily={'Operator Mono'}
         fontSize={48}
@@ -301,6 +272,13 @@ export default makeScene2D(function* (view) {
   );
 
   yield* waitUntil('zoom-to-p0-p1');
+  const curveGroup = group(
+    refs.curve,
+    ...refs.lines,
+    ...refs.pointLabels,
+    ...refs.controlPoints,
+  );
+  curveGroup.save();
   camera().save();
   yield* all(
     refs.lines[2].end(0, 1),
@@ -316,14 +294,8 @@ export default makeScene2D(function* (view) {
       all(
         refs.pointLabels[0].fontSize(26, 1.3),
         refs.pointLabels[2].fontSize(26, 1.3),
-        refs.pointLabels[0].position(
-          () => refs.controlPoints[0].position().add(new Vector2(-40, 20)),
-          1.3,
-        ),
-        refs.pointLabels[2].position(
-          () => refs.controlPoints[2].position().add(new Vector2(-40, -20)),
-          1.3,
-        ),
+        refs.pointLabels[0].buffer([-40, 20], 1.3),
+        refs.pointLabels[2].buffer([-40, -20], 1.3),
         refs.lines[0].lineWidth(3, 1.2),
       ),
     ),
@@ -339,12 +311,13 @@ export default makeScene2D(function* (view) {
   yield* waitUntil('show-t-2');
   nextTo(tText(), controlPoints[0], Direction.Right, 120);
   tText().opacity(1);
-  yield* tText().fontSize(0, 0).to(38, 0.5);
+  tText().fontSize(0);
+  yield* tText().fontSize(38, 0.5);
 
   yield* waitUntil('show-percentage-t');
-  const percentageText = createRef<Text>();
+  const percentageText = createRef<Txt>();
   camera().add(
-    <Text
+    <Txt
       ref={percentageText}
       text={() => ` = ${(t() * 100).toFixed(0)}%`}
       fill={theme.colors.Blue1}
@@ -369,8 +342,8 @@ export default makeScene2D(function* (view) {
   );
 
   yield* waitUntil('show-linear-interpolation-text');
-  const lerpTitle = createRef<Text>();
-  const lerpFunctionText = createRef<Text>();
+  const lerpTitle = createRef<Txt>();
+  const lerpFunctionText = createRef<Txt>();
   const highlightLines: Line[] = [];
   camera().add(
     <>
@@ -394,14 +367,15 @@ export default makeScene2D(function* (view) {
         end={0}
         stroke={theme.colors.Red}
       />
-      <Text
+      <Txt
         ref={lerpTitle}
         text={'Linear Interpolation'}
         fontFamily={'PT Serif'}
         fill={theme.colors.Blue1}
+        fontSize={0}
         position={[-60, 0]}
       />
-      <Text
+      <Txt
         ref={lerpFunctionText}
         text={'lerp'}
         fontFamily={'Operator Mono'}
@@ -410,8 +384,8 @@ export default makeScene2D(function* (view) {
       />
     </>,
   );
-  nextTo(lerpFunctionText(), lerpTitle(), Direction.Bottom, 40);
-  yield* lerpTitle().fontSize(0, 0).to(52, 1);
+  nextTo(lerpFunctionText(), lerpTitle(), Direction.Bottom, 90);
+  yield* lerpTitle().fontSize(52, 1);
 
   yield* waitUntil('show-lerp-function');
   yield* lerpFunctionText().fontSize(0, 0).to(32, 0.7);
@@ -426,6 +400,7 @@ export default makeScene2D(function* (view) {
   yield* waitUntil('reset-camera');
   yield* camera().restore(0);
 
+  camera().save();
   yield* waitUntil('center-lerp');
   yield* all(
     ...highlightLines.map((line) => line.end(0, 0.3)),
@@ -437,37 +412,159 @@ export default makeScene2D(function* (view) {
   yield* lerpFunctionText().position.x(-280, 1);
 
   yield* waitUntil('lerp-formula');
-  const formulaRefs: RefsProperty<typeof LerpFormula> = {};
-  const formula = (
-    <LerpFormula refs={formulaRefs} a={'a'} b={'b'} t={'t'} x={-55} />
-  );
-  lerpFunctionText().opacity(0);
-  camera().add(formula);
-  yield* camera().zoomOnto(formula, 1, 48);
-
-  yield* waitUntil('b-a');
+  const formula = createRef<LerpFormula>();
   const highlightRect = createRef<SurroundingRectangle>();
-
+  const lerpStart = createRef<Circle>();
+  const lerpEnd = createRef<Circle>();
+  const lerpLine = createRef<Line>();
+  const lerpStartText = createRef<Txt>();
+  const lerpEndText = createRef<Txt>();
+  lerpFunctionText().opacity(0);
   camera().add(
-    <SurroundingRectangle
-      fill={`${theme.colors.Blue2}18`}
-      ref={highlightRect}
-      nodes={[formulaRefs[13], formulaRefs[17]]}
-      end={0}
+    <>
+      <LerpFormula ref={formula} a={'a'} b={'b'} t={'t'} x={-55} />
+      <SurroundingRectangle
+        stroke={theme.colors.Blue2}
+        fill={`${theme.colors.Blue2}18`}
+        lineWidth={2}
+        ref={highlightRect}
+        nodes={[formula().refs[13], formula().refs[17]]}
+        end={0}
+        radius={14}
+        zIndex={-1}
+        smoothCorners
+      />
+      <ControlPoint ref={lerpStart} position={[-300, -100]} scale={0} />
+      <ControlPoint ref={lerpEnd} position={[190, -100]} scale={0} />
+      <Line
+        ref={lerpLine}
+        zIndex={-1}
+        points={() => [lerpStart().position, lerpEnd().position()]}
+        lineWidth={3}
+        end={0}
+        stroke={theme.colors.White}
+      />
+      <Txt
+        ref={lerpStartText}
+        text={'0'}
+        fontFamily={'Operator Mono'}
+        fontSize={0}
+        fill={theme.colors.Blue1}
+        position={() => lerpStart().position().add(Vector2.down.scale(40))}
+      />
+      <Txt
+        ref={lerpEndText}
+        text={'10'}
+        fontFamily={'Operator Mono'}
+        fontSize={0}
+        fill={theme.colors.Brown2}
+        position={() => lerpEnd().position().add(Vector2.down.scale(40))}
+      />
+    </>,
+  );
+
+  /*
+  camera().add(
+    <Brace
+      from={lerpStart()}
+      to={lerpEnd()}
+      buffer={15}
+      lineWidth={4}
+      stroke={theme.colors.Red}
     />,
   );
-  highlightRect().moveBelow(formula);
+   */
+
+  const spline = createRef<Spline>();
+  const brace = createRef<Brace>();
+  camera().add(
+    <>
+      <Brace
+        ref={brace}
+        nodes={[refs.controlPoints[2], controlPoints[0]]}
+        buffer={10}
+        inset={5}
+        start={0.49}
+        end={0.51}
+        edge={BraceDirection.Left}
+      />
+    </>,
+  );
+  yield* all(brace().start(0, 1), brace().end(1, 1));
+  yield* brace().nodes([refs.controlPoints[2], refs.controlPoints[0]], 1);
+  yield* brace().curvature(2, 1).to(0.6, 1).to(1, 1);
+
+  /*
+  camera().add(
+    <Spline
+      ref={spline}
+      zIndex={-1}
+      lineWidth={4}
+      stroke={theme.colors.Red}
+      arrowSize={12}
+    >
+      <Knot
+        position={() => lerpStart().position().add(Vector2.up.scale(15))}
+        endHandle={[0, 40]}
+      />
+      <Knot
+        position={() =>
+          lerpStart()
+            .position()
+            .lerp(lerpEnd().position(), 0.5)
+            .add(Vector2.up.scale(40))
+        }
+        startHandle={[-18, -40]}
+        endHandle={[18, -40]}
+        broken
+      />
+      <Knot
+        position={() => lerpEnd().position().add(Vector2.up.scale(15))}
+        startHandle={[0, 40]}
+      />
+    </Spline>,
+  );
+   */
+  // yield* spline().end(0, 0).to(1, 3, linear);
+
+  // yield* camera().zoomOnto(formula(), 1, 48);
+  yield* all(
+    lerpStart().scale(1, 0.5),
+    lerpEnd().scale(1, 0.5),
+    delay(
+      0.3,
+      all(
+        lerpLine().end(1, 0.4),
+        lerpStartText().fontSize(32, 0.4),
+        lerpEndText().fontSize(32, 0.4),
+      ),
+    ),
+  );
+
+  yield* waitUntil('b-a');
   yield* highlightRect().end(1, 1);
 
   yield* waitUntil('multiply-by-t');
-
-  yield* highlightRect().nodes([formulaRefs[11], formulaRefs[17]], 1);
+  yield* highlightRect().nodes([formula().refs[11], formula().refs[17]], 1);
 
   yield* waitUntil('add-to-a');
-  yield* highlightRect().nodes([formulaRefs[9], formulaRefs[17]], 1);
+  yield* highlightRect().nodes([formula().refs[9], formula().refs[17]], 1);
 
   yield* waitUntil('fade-rect');
   yield* highlightRect().end(0, 0.4);
+
+  yield* waitUntil('reset-camera-2');
+  yield* camera().restore(1);
+
+  yield* waitUntil('zoom-out');
+  yield* camera().zoom(1.6, 1);
+
+  yield* waitUntil('show-curve-again');
+  yield* all(
+    formula().opacity(0, 1),
+    camera().restore(1),
+    curveGroup.restore(1),
+  );
 
   yield* waitUntil('??');
 

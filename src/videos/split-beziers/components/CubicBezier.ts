@@ -1,21 +1,21 @@
-import { BezierCubic2D } from "@common/utils/BezierCubic2D";
-
-import { Shape, ShapeProps } from "@motion-canvas/2d/lib/components";
-import { CurvePoint } from "@motion-canvas/2d/lib/curves";
+import { Shape, ShapeProps } from '@motion-canvas/2d/lib/components';
+import { CurvePoint } from '@motion-canvas/2d/lib/curves';
 import {
   computed,
   initial,
   signal,
   vector2Signal,
-} from "@motion-canvas/2d/lib/decorators";
-import { arc, drawLine, lineTo, moveTo } from "@motion-canvas/2d/lib/utils";
-import { SignalValue, SimpleSignal } from "@motion-canvas/core/lib/signals";
+} from '@motion-canvas/2d/lib/decorators';
+import { arc, drawLine, lineTo, moveTo } from '@motion-canvas/2d/lib/utils';
+import { SignalValue, SimpleSignal } from '@motion-canvas/core/lib/signals';
 import {
+  BBox,
   PossibleVector2,
-  Rect,
   Vector2,
   Vector2Signal,
-} from "@motion-canvas/core/lib/types";
+} from '@motion-canvas/core/lib/types';
+
+import { BezierCubic2D } from '@common/utils/BezierCubic2D';
 
 export interface CubicBezierProps extends ShapeProps {
   from: SignalValue<PossibleVector2>;
@@ -27,16 +27,16 @@ export interface CubicBezierProps extends ShapeProps {
 }
 
 export class CubicBezier extends Shape {
-  @vector2Signal("from")
+  @vector2Signal('from')
   public declare readonly from: Vector2Signal<this>;
 
-  @vector2Signal("fromHandle")
+  @vector2Signal('fromHandle')
   public declare readonly fromHandle: Vector2Signal<this>;
 
-  @vector2Signal("toHandle")
+  @vector2Signal('toHandle')
   public declare readonly toHandle: Vector2Signal<this>;
 
-  @vector2Signal("to")
+  @vector2Signal('to')
   public declare readonly to: Vector2Signal<this>;
 
   @initial(0)
@@ -85,7 +85,7 @@ export class CubicBezier extends Shape {
   }
 
   public getPointAtPercentage(t: number): CurvePoint {
-    return this.curve().getPointAtPercentage(t);
+    return this.curve().eval(t);
   }
 
   public override drawOverlay(
@@ -104,8 +104,8 @@ export class CubicBezier extends Shape {
     ].map((point) => point.transformAsPoint(matrix));
 
     context.lineWidth = 1;
-    context.strokeStyle = "white";
-    context.fillStyle = "white";
+    context.strokeStyle = 'white';
+    context.fillStyle = 'white';
     context.globalAlpha = 0.5;
 
     const lines = new Path2D();
@@ -128,7 +128,7 @@ export class CubicBezier extends Shape {
       context.stroke();
     }
 
-    context.fillStyle = "black";
+    context.fillStyle = 'black';
     for (const point of [points[1], points[2]]) {
       moveTo(context, point);
       context.beginPath();
@@ -185,7 +185,7 @@ export class CubicBezier extends Shape {
     return path;
   }
 
-  protected override getCacheRect(): Rect {
+  protected override getCacheRect(): BBox {
     const [x0, y0, x1, y1, x2, y2, x3, y3] = this.points();
 
     const tvalues: number[] = [];
@@ -254,7 +254,7 @@ export class CubicBezier extends Shape {
     xvalues.push(x0, x3);
     yvalues.push(y0, y3);
 
-    return Rect.fromPoints(
+    return BBox.fromPoints(
       new Vector2(
         Math.min.apply(0, xvalues) - this.lineWidth(),
         Math.min.apply(0, yvalues) - this.lineWidth(),

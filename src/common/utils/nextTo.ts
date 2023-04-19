@@ -1,6 +1,6 @@
-import { Node } from "@motion-canvas/2d/lib/components";
-import { Direction, Vector2 } from "@motion-canvas/core/lib/types";
-import { debug } from "@motion-canvas/core/lib/utils";
+import { Node } from '@motion-canvas/2d/lib/components';
+import { Direction, Vector2 } from '@motion-canvas/core/lib/types';
+import { debug } from '@motion-canvas/core/lib/utils';
 
 /**
  * Position the provided node next to the target node.
@@ -17,8 +17,8 @@ export function nextTo(
   direction: Direction,
   buffer: number = 30,
 ) {
-  const rect = node.cacheRect();
-  const targetRect = target.cacheRect();
+  const rect = node.cacheBBox();
+  const targetRect = target.cacheBBox();
   let targetPosition = target.absolutePosition();
 
   switch (direction) {
