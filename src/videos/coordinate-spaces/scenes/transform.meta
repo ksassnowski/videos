@@ -1,0 +1,138 @@
+{
+  "version": 0,
+  "timeEvents": [
+    {
+      "name": "show scene",
+      "targetTime": 1.27613929349725
+    },
+    {
+      "name": "show circle",
+      "targetTime": 6.031518679630337
+    },
+    {
+      "name": "reset circle",
+      "targetTime": 14.898479003575538
+    },
+    {
+      "name": "position circle x",
+      "targetTime": 17.901182208896564
+    },
+    {
+      "name": "position circle y",
+      "targetTime": 20.410366319907027
+    },
+    {
+      "name": "show diagonal line",
+      "targetTime": 21.85649246411795
+    },
+    {
+      "name": "show cursor",
+      "targetTime": 22.65649246411795
+    },
+    {
+      "name": "move rectangle",
+      "targetTime": 23.95649246411795
+    },
+    {
+      "name": "shift scene",
+      "targetTime": 30.25698177754132
+    },
+    {
+      "name": "show formula",
+      "targetTime": 30.95698177754132
+    },
+    {
+      "name": "show formula highlight",
+      "targetTime": 31.75698177754132
+    },
+    {
+      "name": "highlight R formula",
+      "targetTime": 33.04155545977466
+    },
+    {
+      "name": "highlight R scene",
+      "targetTime": 34.21072009458481
+    },
+    {
+      "name": "highlight T formula",
+      "targetTime": 35.42459473275275
+    },
+    {
+      "name": "highlight T scene",
+      "targetTime": 36.02459473275275
+    },
+    {
+      "name": "highlight Tx",
+      "targetTime": 38.32734792186419
+    },
+    {
+      "name": "highlight Ty",
+      "targetTime": 39.1820203962494
+    },
+    {
+      "name": "highlight output formula",
+      "targetTime": 41.47420282209287
+    },
+    {
+      "name": "highlight output scene",
+      "targetTime": 43.27878445257783
+    },
+    {
+      "name": "hide formula highlight",
+      "targetTime": 46.88594027675567
+    },
+    {
+      "name": "center formula",
+      "targetTime": 47.48594027675567
+    },
+    {
+      "name": "highlight txty",
+      "targetTime": 64.17221562373108
+    },
+    {
+      "name": "show relative pos",
+      "targetTime": 70.02791799175009
+    },
+    {
+      "name": "reset formula scene",
+      "targetTime": 72.59675871892796
+    },
+    {
+      "name": "show circle tx",
+      "targetTime": 74.77697622566559
+    },
+    {
+      "name": "show circle ty",
+      "targetTime": 76.19827105137351
+    },
+    {
+      "name": "show circle t",
+      "targetTime": 77.74725010879135
+    },
+    {
+      "name": "hide lines",
+      "targetTime": 80.85143963073963
+    },
+    {
+      "name": "show absolute pos",
+      "targetTime": 82.3165975672452
+    },
+    {
+      "name": "show cursor 2",
+      "targetTime": 83.3165975672452
+    },
+    {
+      "name": "cursor to rect",
+      "targetTime": 83.91659756724519
+    },
+    {
+      "name": "drag rectangle",
+      "targetTime": 84.6165975672452
+    },
+    {
+      "name": "hide cursor 2",
+      "targetTime": 92.29599939593723
+    }
+  ],
+  "seed": 4165655432
+}

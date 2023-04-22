@@ -1,0 +1,22 @@
+{
+  "version": 0,
+  "timeEvents": [
+    {
+      "name": "transparent-rects",
+      "targetTime": 0
+    },
+    {
+      "name": "move-rect-b",
+      "targetTime": 1.3299614718319042
+    },
+    {
+      "name": "reset-rect-b",
+      "targetTime": 3.261957909813247
+    },
+    {
+      "name": "end-intro",
+      "targetTime": 6.377932833239983
+    }
+  ],
+  "seed": 1420116809
+}

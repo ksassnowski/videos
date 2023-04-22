@@ -1,0 +1,34 @@
+{
+  "version": 0,
+  "timeEvents": [
+    {
+      "name": "show scene",
+      "targetTime": 0.8266908030601563
+    },
+    {
+      "name": "show rect",
+      "targetTime": 4.891072563838074
+    },
+    {
+      "name": "show circle",
+      "targetTime": 6.139948399905317
+    },
+    {
+      "name": "show cursor",
+      "targetTime": 7.629186554470907
+    },
+    {
+      "name": "move rectangle",
+      "targetTime": 8.977962814144924
+    },
+    {
+      "name": "hide cursor",
+      "targetTime": 16.660671147478258
+    },
+    {
+      "name": "hide scene",
+      "targetTime": 18.044138802004397
+    }
+  ],
+  "seed": 51866181
+}
