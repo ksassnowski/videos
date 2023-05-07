@@ -8,6 +8,7 @@ import {
 } from '@motion-canvas/2d/lib/utils';
 import { SignalValue, SimpleSignal } from '@motion-canvas/core/lib/signals';
 import { Vector2 } from '@motion-canvas/core/lib/types';
+import { debug } from '@motion-canvas/core/lib/utils';
 
 export interface ArcVectorProps extends CircleProps {
   arrowSize?: SignalValue<number>;
@@ -15,7 +16,7 @@ export interface ArcVectorProps extends CircleProps {
 }
 
 export class ArcVector extends Circle {
-  @initial(16)
+  @initial(13)
   @signal()
   public declare readonly arrowSize: SimpleSignal<number, this>;
 
@@ -40,7 +41,7 @@ export class ArcVector extends Circle {
 
     this.applyStyle(context);
     context.beginPath();
-    arc(context, this.position(), radius, startAngle, endAngle, counter);
+    arc(context, Vector2.zero, radius, startAngle, endAngle, counter);
     context.stroke();
 
     const arcLength = Math.abs(startAngle - endAngle) * radius;
@@ -52,7 +53,7 @@ export class ArcVector extends Circle {
     const arrowSize = this.arrowSize();
 
     const normal = Vector2.fromRadians(endAngle).normalized;
-    const position = normal.scale(radius);
+    const position = Vector2.zero.add(normal.scale(radius));
     const tangent = counter
       ? normal.perpendicular
       : normal.flipped.perpendicular;

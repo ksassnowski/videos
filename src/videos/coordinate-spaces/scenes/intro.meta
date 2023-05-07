@@ -2,33 +2,125 @@
   "version": 0,
   "timeEvents": [
     {
-      "name": "show scene",
-      "targetTime": 0.8266908030601563
+      "name": "enter heroine",
+      "targetTime": 0.4258445117821017
     },
     {
-      "name": "show rect",
-      "targetTime": 4.891072563838074
+      "name": "enter goblin",
+      "targetTime": 4.757606412360337
     },
     {
-      "name": "show circle",
-      "targetTime": 6.139948399905317
+      "name": "attack 1",
+      "targetTime": 8.773909383441541
     },
     {
-      "name": "show cursor",
-      "targetTime": 7.629186554470907
+      "name": "show code 1",
+      "targetTime": 18.29495083150446
     },
     {
-      "name": "move rectangle",
-      "targetTime": 8.977962814144924
+      "name": "highlight code 1",
+      "targetTime": 20.75749827839488
     },
     {
-      "name": "hide cursor",
-      "targetTime": 16.660671147478258
+      "name": "highlight code 2",
+      "targetTime": 22.776761243003985
     },
     {
-      "name": "hide scene",
-      "targetTime": 18.044138802004397
+      "name": "highlight code 3",
+      "targetTime": 25.02641331067796
+    },
+    {
+      "name": "highlight code 4",
+      "targetTime": 26.353909395953306
+    },
+    {
+      "name": "hide code 2",
+      "targetTime": 26.897376683972517
+    },
+    {
+      "name": "attack 2",
+      "targetTime": 28.645160874591337
+    },
+    {
+      "name": "comedic zoom",
+      "targetTime": 32.253790840059615
+    },
+    {
+      "name": "restore camera",
+      "targetTime": 34.848201450486336
+    },
+    {
+      "name": "comedic zoom 2",
+      "targetTime": 36.09057431733606
+    },
+    {
+      "name": "comedic zoom 3",
+      "targetTime": 37.663518950280825
+    },
+    {
+      "name": "restore camera 2",
+      "targetTime": 38.86414291098485
+    },
+    {
+      "name": "show code 2",
+      "targetTime": 39.58963531061474
+    },
+    {
+      "name": "change code 1",
+      "targetTime": 40.98963531061474
+    },
+    {
+      "name": "change code 2",
+      "targetTime": 46.07535087239587
+    },
+    {
+      "name": "change code 3",
+      "targetTime": 52.86298866187306
+    },
+    {
+      "name": "hide code 3",
+      "targetTime": 57.383197172088295
+    },
+    {
+      "name": "show question marks",
+      "targetTime": 59.20279268295993
+    },
+    {
+      "name": "hide question marks",
+      "targetTime": 60.34070388851168
+    },
+    {
+      "name": "show spear",
+      "targetTime": 60.80070388851168
+    },
+    {
+      "name": "random blood",
+      "targetTime": 61.18717249593227
+    },
+    {
+      "name": "show drink",
+      "targetTime": 64.1459360534393
+    },
+    {
+      "name": "sit down",
+      "targetTime": 64.6459360534393
+    },
+    {
+      "name": "drink",
+      "targetTime": 65.66395406399756
+    },
+    {
+      "name": "show title",
+      "targetTime": 66.56383109636435
+    },
+    {
+      "name": "scale title",
+      "targetTime": 78.71658697620678
+    },
+    {
+      "name": "scene end",
+      "targetTime": 81.11658697620679
     }
   ],
-  "seed": 51866181
+  "seed": 3300383127
 }

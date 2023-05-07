@@ -19,7 +19,7 @@
   "rendering": {
     "fps": 60,
     "resolutionScale": 2,
-    "colorSpace": "srgb",
+    "colorSpace": "display-p3",
     "exporter": {
       "name": "image sequence",
       "options": {

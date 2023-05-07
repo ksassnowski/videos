@@ -1,0 +1,74 @@
+{
+  "version": 0,
+  "timeEvents": [
+    {
+      "name": "show objects",
+      "targetTime": 0.6
+    },
+    {
+      "name": "show relative pos",
+      "targetTime": 2.1
+    },
+    {
+      "name": "show cursor",
+      "targetTime": 2.965550236744887
+    },
+    {
+      "name": "cursor to rect",
+      "targetTime": 3.5655502367448872
+    },
+    {
+      "name": "move rect",
+      "targetTime": 4.265550236744887
+    },
+    {
+      "name": "show formula",
+      "targetTime": 9.065550236744887
+    },
+    {
+      "name": "highlight P",
+      "targetTime": 13.784711056628394
+    },
+    {
+      "name": "move rect 2",
+      "targetTime": 14.594259164493515
+    },
+    {
+      "name": "hide highlights",
+      "targetTime": 18.494259164493517
+    },
+    {
+      "name": "show local vector",
+      "targetTime": 19.194259164493516
+    },
+    {
+      "name": "move rect 3",
+      "targetTime": 24.093703862420245
+    },
+    {
+      "name": "hide absolute pos",
+      "targetTime": 30.752805404407393
+    },
+    {
+      "name": "cursor to circle",
+      "targetTime": 33.51867794667485
+    },
+    {
+      "name": "move circle",
+      "targetTime": 34.81867794667485
+    },
+    {
+      "name": "reset",
+      "targetTime": 40.179685410420895
+    },
+    {
+      "name": "hide scene",
+      "targetTime": 48.771873493395105
+    },
+    {
+      "name": "scene end",
+      "targetTime": 50.397641665564635
+    }
+  ],
+  "seed": 1732702388
+}

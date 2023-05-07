@@ -1,22 +1,25 @@
-import { Icon, IconProps, Node } from '@motion-canvas/2d/lib/components';
+import { Img, Node, ShapeProps } from '@motion-canvas/2d/lib/components';
 import { Curve } from '@motion-canvas/2d/lib/components/Curve';
 import { all, waitFor } from '@motion-canvas/core/lib/flow';
-import { createComputed, createSignal } from '@motion-canvas/core/lib/signals';
+import {
+  SignalValue,
+  createComputed,
+  createSignal,
+} from '@motion-canvas/core/lib/signals';
 import { ThreadGenerator } from '@motion-canvas/core/lib/threading';
 import { easeInBack, easeOutBack } from '@motion-canvas/core/lib/tweening';
-import {
-  Origin,
-  PossibleVector2,
-  Vector2,
-} from '@motion-canvas/core/lib/types';
+import { PossibleVector2, Vector2 } from '@motion-canvas/core/lib/types';
 
 import { translate } from '@common/utils/translate';
+
+import cursorImage from '../assets/cursor.svg';
 
 export interface DragConfig {
   nodeScale: number;
   ghostScale: number;
   ghostOpacity: number;
   dragPivot?: Node;
+  dragOffset?: PossibleVector2;
 }
 
 interface DragPayload {
@@ -29,19 +32,36 @@ interface DragCallback {
   (payload: DragPayload): ThreadGenerator;
 }
 
-export class Cursor extends Icon {
-  public constructor(props: Omit<IconProps, 'icon'>) {
-    super({
-      icon: 'openmoji:cursor',
-      ...props,
-    });
+export class Cursor extends Img {
+  public get cursorTipOffset(): Vector2 {
+    return new Vector2(-50, -50);
   }
 
-  public moveToNode(node: Node, duration: number): ThreadGenerator {
-    return this.absolutePosition(
-      node.absolutePosition().sub(this.cursorTipOffset()),
-      duration,
-    );
+  public constructor(props: ShapeProps) {
+    super({ size: 90, ...props, src: cursorImage });
+  }
+
+  public moveToPosition(
+    position: PossibleVector2 | Node,
+    duration: number,
+  ): ThreadGenerator {
+    let to: Vector2;
+
+    if (position instanceof Node) {
+      to = position.absolutePosition();
+    } else {
+      to = new Vector2(position);
+    }
+
+    return this.absolutePosition(to.sub(this.cursorTipOffset), duration);
+  }
+
+  public stickTo(position: () => Vector2) {
+    this.absolutePosition(() => position().sub(this.cursorTipOffset));
+  }
+
+  public unstick(): void {
+    this.absolutePosition(this.absolutePosition());
   }
 
   public show(duration = 0.6): ThreadGenerator {
@@ -58,7 +78,7 @@ export class Cursor extends Icon {
     duration: number,
     config?: Partial<DragConfig>,
   ): ThreadGenerator {
-    function* callback({ cursorTipOffset, clickOffset }: DragPayload) {
+    function* callback({ config, cursorTipOffset, clickOffset }: DragPayload) {
       const destinations = to.map((point) => new Vector2(point));
 
       for (const destination of destinations) {
@@ -67,7 +87,10 @@ export class Cursor extends Icon {
         );
         yield* all(
           this.absolutePosition(
-            transformedDestination.sub(cursorTipOffset).add(clickOffset),
+            transformedDestination
+              .sub(cursorTipOffset)
+              .add(clickOffset)
+              .add(config.dragOffset),
             duration,
           ),
           node.absolutePosition(transformedDestination, duration),
@@ -126,6 +149,7 @@ export class Cursor extends Icon {
         nodeScale: 0.9,
         ghostOpacity: 0.2,
         ghostScale: 1,
+        dragOffset: Vector2.zero,
       },
       config ?? {},
     );
@@ -146,7 +170,7 @@ export class Cursor extends Icon {
 
     yield* callback({
       config: mergedConfig,
-      cursorTipOffset: this.cursorTipOffset(),
+      cursorTipOffset: this.cursorTipOffset,
       clickOffset,
     });
 
@@ -155,9 +179,5 @@ export class Cursor extends Icon {
       node.scale(originalNodeScale, 0.4),
     );
     nodeClone.remove();
-  }
-
-  private cursorTipOffset(): Vector2 {
-    return this.getOriginDelta(Origin.TopLeft).add(Vector2.down.scale(20));
   }
 }

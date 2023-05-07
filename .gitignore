@@ -2,7 +2,6 @@
 node_modules
 output
 dist
-./videos
 
 # Editor directories and files
 .vscode/*

@@ -1,0 +1,54 @@
+{
+  "version": 0,
+  "timeEvents": [
+    {
+      "name": "show scene",
+      "targetTime": 0
+    },
+    {
+      "name": "show rig",
+      "targetTime": 2.1105962017455058
+    },
+    {
+      "name": "scale rect",
+      "targetTime": 2.9105962017455056
+    },
+    {
+      "name": "show desired scaling",
+      "targetTime": 9.34889504126486
+    },
+    {
+      "name": "scale group",
+      "targetTime": 15.085416600565562
+    },
+    {
+      "name": "hide cursor",
+      "targetTime": 18.585416600565562
+    },
+    {
+      "name": "show local vec",
+      "targetTime": 24.499469559020483
+    },
+    {
+      "name": "show cursor",
+      "targetTime": 26.159381342657163
+    },
+    {
+      "name": "scale group 2",
+      "targetTime": 26.759381342657164
+    },
+    {
+      "name": "multiply scale",
+      "targetTime": 34.17070366582006
+    },
+    {
+      "name": "scale group 3",
+      "targetTime": 35.66865510273203
+    },
+    {
+      "name": "scene end",
+      "targetTime": 40.86060392746068
+    }
+  ],
+  "seed": 3741611848
+}

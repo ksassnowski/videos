@@ -1,0 +1,14 @@
+{
+  "version": 0,
+  "timeEvents": [
+    {
+      "name": "start simulation",
+      "targetTime": 1
+    },
+    {
+      "name": "scene end",
+      "targetTime": 6.543124585054725
+    }
+  ],
+  "seed": 2971098508
+}

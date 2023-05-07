@@ -1,5 +1,106 @@
 {
   "version": 0,
-  "timeEvents": [],
+  "timeEvents": [
+    {
+      "name": "rotate rect",
+      "targetTime": 1.0108231588963
+    },
+    {
+      "name": "show circle pos",
+      "targetTime": 17.427046450184804
+    },
+    {
+      "name": "rotate rect 2",
+      "targetTime": 23.318938718900355
+    },
+    {
+      "name": "reset rect",
+      "targetTime": 24.706026892122598
+    },
+    {
+      "name": "show vectors",
+      "targetTime": 25.706026892122598
+    },
+    {
+      "name": "rotate rect 3",
+      "targetTime": 28.292791062223216
+    },
+    {
+      "name": "show formula",
+      "targetTime": 33.43974058211345
+    },
+    {
+      "name": "show theta",
+      "targetTime": 34.9168086735442
+    },
+    {
+      "name": "highlight origin",
+      "targetTime": 39.58819706993392
+    },
+    {
+      "name": "move rect",
+      "targetTime": 41.527339073251945
+    },
+    {
+      "name": "highlight rect origin",
+      "targetTime": 42.527339073251945
+    },
+    {
+      "name": "reset scene",
+      "targetTime": 43.527339073251945
+    },
+    {
+      "name": "show separate matrices",
+      "targetTime": 55.03229641235055
+    },
+    {
+      "name": "highlight P",
+      "targetTime": 57.39515475042668
+    },
+    {
+      "name": "highlight translation",
+      "targetTime": 61.004273015116965
+    },
+    {
+      "name": "show translation",
+      "targetTime": 62.29736502702872
+    },
+    {
+      "name": "highlight origin 2",
+      "targetTime": 65.87031749812266
+    },
+    {
+      "name": "highlight rotation matrix",
+      "targetTime": 71.74730385716953
+    },
+    {
+      "name": "show rotation",
+      "targetTime": 73.23047908096964
+    },
+    {
+      "name": "highlight translation 2",
+      "targetTime": 75.85899514169151
+    },
+    {
+      "name": "show translation 2",
+      "targetTime": 77.41712251568629
+    },
+    {
+      "name": "hide highlight",
+      "targetTime": 79.03750526546982
+    },
+    {
+      "name": "show full rotation",
+      "targetTime": 81.03002868536281
+    },
+    {
+      "name": "show combined matrix",
+      "targetTime": 88.63242809409242
+    },
+    {
+      "name": "scene end",
+      "targetTime": 99.7036840362509
+    }
+  ],
   "seed": 4248496041
 }

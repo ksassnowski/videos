@@ -2,22 +2,26 @@ import { Layout, LayoutProps, Txt } from '@motion-canvas/2d/lib/components';
 import {
   colorSignal,
   initial,
+  signal,
   vector2Signal,
 } from '@motion-canvas/2d/lib/decorators';
 import { PossibleCanvasStyle } from '@motion-canvas/2d/lib/partials';
-import { SignalValue } from '@motion-canvas/core/lib/signals';
+import { SignalValue, SimpleSignal } from '@motion-canvas/core/lib/signals';
+import { ThreadGenerator } from '@motion-canvas/core/lib/threading';
+import { easeInBack, easeOutBack } from '@motion-canvas/core/lib/tweening';
 import {
   ColorSignal,
-  Vector2,
+  PossibleVector2,
   Vector2Signal,
 } from '@motion-canvas/core/lib/types';
 
 import theme from '@theme';
 
 export interface CoordinateProps extends LayoutProps {
-  coordinates: SignalValue<Vector2>;
+  coordinates: SignalValue<PossibleVector2>;
   xColor?: SignalValue<PossibleCanvasStyle>;
   yColor?: SignalValue<PossibleCanvasStyle>;
+  decimals?: SignalValue<number>;
 }
 
 export class Coordinates extends Layout {
@@ -32,6 +36,10 @@ export class Coordinates extends Layout {
   @colorSignal()
   public declare readonly yColor: ColorSignal<this>;
 
+  @initial(0)
+  @signal()
+  public declare readonly decimals: SimpleSignal<number, this>;
+
   public constructor(props: CoordinateProps) {
     super({
       fontFamily: theme.fonts.mono,
@@ -45,16 +53,24 @@ export class Coordinates extends Layout {
       <>
         <Txt text={'('} fill={theme.colors.Gray2} />
         <Txt
-          text={() => Math.round(this.coordinates().x).toString()}
+          text={() => this.coordinates().x.toFixed(this.decimals()).toString()}
           fill={this.xColor()}
         />
         <Txt text={','} fill={theme.colors.Gray2} />
         <Txt
-          text={() => Math.round(this.coordinates().y).toString()}
+          text={() => this.coordinates().y.toFixed(this.decimals()).toString()}
           fill={this.yColor()}
         />
         <Txt text={')'} fill={theme.colors.Gray2} />
       </>,
     );
+  }
+
+  public show(duration = 0.6): ThreadGenerator {
+    return this.scale(1, duration, easeOutBack);
+  }
+
+  public hide(duration = 0.6): ThreadGenerator {
+    return this.scale(0, duration, easeInBack);
   }
 }

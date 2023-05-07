@@ -1,0 +1,110 @@
+{
+  "version": 0,
+  "timeEvents": [
+    {
+      "name": "show scene container",
+      "targetTime": 0.2768664808872304
+    },
+    {
+      "name": "enter sprites",
+      "targetTime": 0.8768664808872304
+    },
+    {
+      "name": "enter gobo",
+      "targetTime": 2.248374964582222
+    },
+    {
+      "name": "show scene tree",
+      "targetTime": 4.802743583847047
+    },
+    {
+      "name": "highlight objects",
+      "targetTime": 7.196764511600989
+    },
+    {
+      "name": "highlight spear",
+      "targetTime": 13.358735447548069
+    },
+    {
+      "name": "highlight hero",
+      "targetTime": 14.800916043830943
+    },
+    {
+      "name": "reset hero",
+      "targetTime": 16.112526172570217
+    },
+    {
+      "name": "attack",
+      "targetTime": 19.373946422572427
+    },
+    {
+      "name": "show cursor",
+      "targetTime": 37.52772220690468
+    },
+    {
+      "name": "move to hero",
+      "targetTime": 39.895335410891484
+    },
+    {
+      "name": "drag hero",
+      "targetTime": 40.61978692569712
+    },
+    {
+      "name": "show code",
+      "targetTime": 43.519786925697126
+    },
+    {
+      "name": "move by code",
+      "targetTime": 44.30254925948557
+    },
+    {
+      "name": "hide code",
+      "targetTime": 45.70110512019108
+    },
+    {
+      "name": "move hero",
+      "targetTime": 46.75980846167012
+    },
+    {
+      "name": "show cursor 2",
+      "targetTime": 59.71798893921585
+    },
+    {
+      "name": "show transform rig",
+      "targetTime": 60.31798893921585
+    },
+    {
+      "name": "cursor to corner",
+      "targetTime": 60.71798893921585
+    },
+    {
+      "name": "scale nodes",
+      "targetTime": 61.46798893921585
+    },
+    {
+      "name": "cursor to rotation",
+      "targetTime": 62.194121300005996
+    },
+    {
+      "name": "rotate nodes",
+      "targetTime": 62.894121300006
+    },
+    {
+      "name": "reset transform",
+      "targetTime": 64.09114332731163
+    },
+    {
+      "name": "move hero again",
+      "targetTime": 71.18147865365724
+    },
+    {
+      "name": "hide everything",
+      "targetTime": 86.614513193447
+    },
+    {
+      "name": "scene end",
+      "targetTime": 88.41079226081168
+    }
+  ],
+  "seed": 1076841390
+}

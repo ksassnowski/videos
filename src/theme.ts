@@ -33,5 +33,6 @@ export default {
     sans: 'Source Sans Pro',
     serif: 'Source Serif Pro',
     mono: 'Operator Mono',
+    pixel: 'DisposableDroidBB',
   },
 };

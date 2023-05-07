@@ -5,6 +5,7 @@ import {
   RectProps,
   Txt,
 } from '@motion-canvas/2d/lib/components';
+import { grayscale } from '@motion-canvas/2d/lib/partials';
 
 import theme from '@theme';
 
@@ -14,28 +15,23 @@ export const Pill = ({
   ...rest
 }: RectProps & { text: string; icon: Node }) => (
   <Rect
-    fill={theme.colors.White}
-    minHeight={60}
-    padding={[14, 18]}
-    width={220}
-    smoothCorners
-    radius={10}
-    shadowColor={theme.colors.Brown3}
-    shadowOffset={[0, 4]}
+    padding={[5, 10]}
     direction={'column'}
+    justifyContent={'center'}
     gap={16}
     layout
+    smoothCorners
+    radius={4}
     {...rest}
   >
     <Layout alignItems={'center'} gap={14}>
       {icon}
       <Txt
         text={text}
-        fontSize={28}
-        fontWeight={500}
-        letterSpacing={-1.2}
+        fontSize={16}
+        fontWeight={400}
         fontFamily={theme.fonts.mono}
-        fill={theme.colors.Gray3}
+        fill={theme.colors.White}
       />
     </Layout>
   </Rect>

@@ -1,0 +1,38 @@
+{
+  "version": 0,
+  "timeEvents": [
+    {
+      "name": "show scenes",
+      "targetTime": 0
+    },
+    {
+      "name": "move input",
+      "targetTime": 5.596624663007957
+    },
+    {
+      "name": "hide scenes",
+      "targetTime": 12.248074423319
+    },
+    {
+      "name": "show matrix",
+      "targetTime": 14.256500190812295
+    },
+    {
+      "name": "show scenes 2",
+      "targetTime": 15.774381499735942
+    },
+    {
+      "name": "move input 2",
+      "targetTime": 17.394381499735935
+    },
+    {
+      "name": "hide scenes 2",
+      "targetTime": 24.35542509913518
+    },
+    {
+      "name": "hide formula",
+      "targetTime": 26.554915450776324
+    }
+  ],
+  "seed": 2251120556
+}

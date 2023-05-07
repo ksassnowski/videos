@@ -1,0 +1,42 @@
+{
+  "version": 0,
+  "timeEvents": [
+    {
+      "name": "highlight matrix",
+      "targetTime": 2.818683625854371
+    },
+    {
+      "name": "scale x",
+      "targetTime": 4.772254501176356
+    },
+    {
+      "name": "scale y",
+      "targetTime": 5.772254501176356
+    },
+    {
+      "name": "reset scale",
+      "targetTime": 8.573044103366648
+    },
+    {
+      "name": "use rect scale",
+      "targetTime": 12.060797512810156
+    },
+    {
+      "name": "highlight Sx",
+      "targetTime": 13.299032515225026
+    },
+    {
+      "name": "highlight Sy",
+      "targetTime": 16.402692264064815
+    },
+    {
+      "name": "hide highlight",
+      "targetTime": 18.836382236764933
+    },
+    {
+      "name": "scene end",
+      "targetTime": 20.17419916625482
+    }
+  ],
+  "seed": 3599582823
+}

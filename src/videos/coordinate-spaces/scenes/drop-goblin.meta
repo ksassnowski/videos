@@ -1,0 +1,22 @@
+{
+  "version": 0,
+  "timeEvents": [
+    {
+      "name": "blood",
+      "targetTime": 1.132892080131484
+    },
+    {
+      "name": "blood 2",
+      "targetTime": 1.9558757007415257
+    },
+    {
+      "name": "blood 3",
+      "targetTime": 2.7945740942877455
+    },
+    {
+      "name": "scene end",
+      "targetTime": 4.791427474922106
+    }
+  ],
+  "seed": 1581368394
+}
