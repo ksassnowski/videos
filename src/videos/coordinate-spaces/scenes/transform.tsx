@@ -26,6 +26,7 @@ import {
   Control,
   Coordinates,
   Cursor,
+  RectCircleSceneTree,
   RectObject,
   RelativePositionVector,
   SceneContainer,
@@ -74,38 +75,9 @@ export default makeScene2D(function* (view) {
   yield view.add(
     <>
       <SceneContainer ref={sceneContainer} scale={0} showAxis>
-        <SceneTree
+        <RectCircleSceneTree
           ref={sceneTree}
           position={[-370, -305]}
-          objects={[
-            {
-              id: 'rect',
-              label: 'Rectangle',
-              icon: (
-                <Rect
-                  size={10}
-                  fill={theme.colors.Blue1}
-                  radius={2}
-                  lineWidth={3}
-                  stroke={`${theme.colors.Blue1}88`}
-                />
-              ),
-              children: [
-                {
-                  id: 'circle',
-                  label: 'Circle',
-                  icon: (
-                    <Circle
-                      size={10}
-                      fill={theme.colors.Red}
-                      lineWidth={3}
-                      stroke={`${theme.colors.Red}88`}
-                    />
-                  ),
-                },
-              ],
-            },
-          ]}
           opacity={0}
           scale={1.5}
         />

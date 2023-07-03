@@ -1,0 +1,34 @@
+{
+  "version": 0,
+  "timeEvents": [
+    {
+      "name": "show scene",
+      "targetTime": 0.9542734095479455
+    },
+    {
+      "name": "show pos",
+      "targetTime": 3.6790272078277937
+    },
+    {
+      "name": "show rect",
+      "targetTime": 6.55183899059071
+    },
+    {
+      "name": "move coordinates",
+      "targetTime": 8.93431608698918
+    },
+    {
+      "name": "show absolute",
+      "targetTime": 13.218511379158993
+    },
+    {
+      "name": "hide objects",
+      "targetTime": 15.870974228671301
+    },
+    {
+      "name": "scene end",
+      "targetTime": 19.634161706605234
+    }
+  ],
+  "seed": 3400752081
+}

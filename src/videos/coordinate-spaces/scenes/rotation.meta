@@ -3,103 +3,107 @@
   "timeEvents": [
     {
       "name": "rotate rect",
-      "targetTime": 1.0108231588963
+      "targetTime": 1.1967184948539855
     },
     {
       "name": "show circle pos",
-      "targetTime": 17.427046450184804
+      "targetTime": 17.61294178614249
     },
     {
       "name": "rotate rect 2",
-      "targetTime": 23.318938718900355
+      "targetTime": 23.50483405485804
     },
     {
       "name": "reset rect",
-      "targetTime": 24.706026892122598
+      "targetTime": 24.891922228080283
     },
     {
       "name": "show vectors",
-      "targetTime": 25.706026892122598
+      "targetTime": 25.891922228080283
     },
     {
       "name": "rotate rect 3",
-      "targetTime": 28.292791062223216
+      "targetTime": 28.4786863981809
     },
     {
       "name": "show formula",
-      "targetTime": 33.43974058211345
+      "targetTime": 33.62563591807114
     },
     {
       "name": "show theta",
-      "targetTime": 34.9168086735442
+      "targetTime": 35.10270400950189
     },
     {
       "name": "highlight origin",
-      "targetTime": 39.58819706993392
+      "targetTime": 39.8394502491199
     },
     {
       "name": "move rect",
-      "targetTime": 41.527339073251945
+      "targetTime": 41.778592252437925
     },
     {
       "name": "highlight rect origin",
-      "targetTime": 42.527339073251945
+      "targetTime": 42.778592252437925
     },
     {
       "name": "reset scene",
-      "targetTime": 43.527339073251945
+      "targetTime": 43.778592252437925
     },
     {
       "name": "show separate matrices",
-      "targetTime": 55.03229641235055
+      "targetTime": 55.28354959153653
     },
     {
       "name": "highlight P",
-      "targetTime": 57.39515475042668
+      "targetTime": 57.64640792961266
     },
     {
       "name": "highlight translation",
-      "targetTime": 61.004273015116965
+      "targetTime": 61.255526194302945
     },
     {
       "name": "show translation",
-      "targetTime": 62.29736502702872
+      "targetTime": 62.5486182062147
     },
     {
       "name": "highlight origin 2",
-      "targetTime": 65.87031749812266
+      "targetTime": 66.12157067730865
     },
     {
       "name": "highlight rotation matrix",
-      "targetTime": 71.74730385716953
+      "targetTime": 71.99855703635552
     },
     {
       "name": "show rotation",
-      "targetTime": 73.23047908096964
+      "targetTime": 73.48173226015564
     },
     {
       "name": "highlight translation 2",
-      "targetTime": 75.85899514169151
+      "targetTime": 76.1102483208775
     },
     {
       "name": "show translation 2",
-      "targetTime": 77.41712251568629
+      "targetTime": 77.66837569487228
     },
     {
       "name": "hide highlight",
-      "targetTime": 79.03750526546982
+      "targetTime": 79.28875844465581
     },
     {
       "name": "show full rotation",
-      "targetTime": 81.03002868536281
+      "targetTime": 81.2812818645488
     },
     {
       "name": "show combined matrix",
-      "targetTime": 88.63242809409242
+      "targetTime": 88.88368127327841
+    },
+    {
+      "name": "center formula",
+      "targetTime": 90.84582065933378
     },
     {
       "name": "scene end",
-      "targetTime": 99.7036840362509
+      "targetTime": 95.5660041889529
     }
   ],
   "seed": 4248496041

@@ -1,0 +1,66 @@
+{
+  "version": 0,
+  "timeEvents": [
+    {
+      "name": "show scene",
+      "targetTime": 0.19486905920391703
+    },
+    {
+      "name": "show rig",
+      "targetTime": 0.894869059203917
+    },
+    {
+      "name": "move cursor",
+      "targetTime": 1.7948690592039171
+    },
+    {
+      "name": "rotate rect",
+      "targetTime": 5.194869059203917
+    },
+    {
+      "name": "scale rect",
+      "targetTime": 7.694869059203917
+    },
+    {
+      "name": "reset rotation",
+      "targetTime": 11.694869059203915
+    },
+    {
+      "name": "hide rig",
+      "targetTime": 13.645660062199187
+    },
+    {
+      "name": "move camera",
+      "targetTime": 17.864927582672024
+    },
+    {
+      "name": "show local coords",
+      "targetTime": 20.988262670389155
+    },
+    {
+      "name": "show lines",
+      "targetTime": 24.192632814307974
+    },
+    {
+      "name": "show global coords",
+      "targetTime": 29.9896089221072
+    },
+    {
+      "name": "show local coords 2",
+      "targetTime": 33.1412601742895
+    },
+    {
+      "name": "hide lines",
+      "targetTime": 34.39881011325048
+    },
+    {
+      "name": "hide objects",
+      "targetTime": 35.74881011325047
+    },
+    {
+      "name": "scene end",
+      "targetTime": 37.77426537223758
+    }
+  ],
+  "seed": 354008663
+}

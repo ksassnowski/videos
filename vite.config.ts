@@ -2,6 +2,7 @@ import glob from 'glob';
 import path from 'path';
 import { defineConfig } from 'vite';
 
+import ffmpeg from '@motion-canvas/ffmpeg';
 import motionCanvas from '@motion-canvas/vite-plugin';
 
 export default defineConfig({
@@ -9,6 +10,7 @@ export default defineConfig({
     motionCanvas({
       project: glob.sync('./src/videos/*/*.ts'),
     }),
+    ffmpeg(),
   ],
   resolve: {
     alias: {

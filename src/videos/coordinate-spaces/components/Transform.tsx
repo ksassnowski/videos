@@ -5,6 +5,7 @@ import { SignalValue, SimpleSignal } from '@motion-canvas/core/lib/signals';
 import {
   Color,
   ColorSignal,
+  Matrix2D,
   PossibleColor,
   Vector2,
 } from '@motion-canvas/core/lib/types';
@@ -12,8 +13,10 @@ import {
 import theme from '@theme';
 
 export interface TransformProps extends LayoutProps {
-  node: SignalValue<Node>;
+  node?: SignalValue<Node>;
+  end?: SignalValue<number>;
   arrowSize?: SignalValue<number>;
+  axisLength?: SignalValue<number>;
   xColor?: SignalValue<PossibleColor>;
   yColor?: SignalValue<PossibleColor>;
 }
@@ -21,11 +24,19 @@ export interface TransformProps extends LayoutProps {
 export class Transform extends Shape {
   @initial(null)
   @signal()
-  public declare readonly node: SimpleSignal<Node, this>;
+  public declare readonly node: SimpleSignal<Node | null, this>;
 
   @initial(8)
   @signal()
   public declare readonly arrowSize: SimpleSignal<number, this>;
+
+  @initial(50)
+  @signal()
+  public declare readonly axisLength: SimpleSignal<number, this>;
+
+  @initial(1)
+  @signal()
+  public declare readonly end: SimpleSignal<number, this>;
 
   @initial(theme.colors.Red)
   @colorSignal()
@@ -37,11 +48,13 @@ export class Transform extends Shape {
 
   public constructor(props: TransformProps) {
     super({
-      lineWidth: 3,
+      lineWidth: 5,
       ...props,
     });
 
-    this.absolutePosition(() => this.node().absolutePosition());
+    if (this.node()) {
+      this.absolutePosition(() => this.node().absolutePosition());
+    }
   }
 
   protected override drawShape(context: CanvasRenderingContext2D) {
@@ -49,9 +62,17 @@ export class Transform extends Shape {
     this.applyStyle(context);
     this.drawRipple(context);
 
+    const end = this.end();
+    if (end === 0) {
+      return;
+    }
+
     const node = this.node();
-    const matrix = this.worldToLocal().multiply(node.localToWorld());
+    const matrix = node
+      ? this.worldToLocal().multiply(node.localToWorld())
+      : Matrix2D.identity.domMatrix;
     const arrowSize = this.arrowSize();
+    const axisLength = this.axisLength();
     const arrows: [Vector2, Color][] = [
       [Vector2.right, this.xColor()],
       [Vector2.up, this.yColor()],
@@ -65,13 +86,16 @@ export class Transform extends Shape {
       context.beginPath();
 
       direction = direction.transformAsPoint(matrix);
-      const lineEnd = direction.scale(50 - arrowSize / 2);
+      const lineEnd = direction.scale(axisLength - arrowSize / 2).scale(end);
       const tangent = direction.flipped.normalized;
 
       moveTo(context, Vector2.zero);
       lineTo(context, lineEnd);
 
-      this.drawArrow(context, lineEnd, tangent, arrowSize);
+      const realArrowSize = Math.min(lineEnd.magnitude / 2, arrowSize);
+      if (realArrowSize >= 0.0001) {
+        this.drawArrow(context, lineEnd, tangent, realArrowSize);
+      }
 
       context.stroke();
       context.fill();

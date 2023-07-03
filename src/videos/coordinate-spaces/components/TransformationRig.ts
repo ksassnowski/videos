@@ -9,6 +9,7 @@ import {
   PossibleSpacing,
   SpacingSignal,
   Vector2,
+  Vector2Signal,
 } from '@motion-canvas/core/lib/types';
 
 export interface TransformationRigProps extends ShapeProps {

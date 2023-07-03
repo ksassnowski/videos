@@ -1,0 +1,34 @@
+{
+  "version": 0,
+  "timeEvents": [
+    {
+      "name": "show scaling scene",
+      "targetTime": 0.949133203181559
+    },
+    {
+      "name": "show scaling",
+      "targetTime": 1.549133203181559
+    },
+    {
+      "name": "show rotation",
+      "targetTime": 2.349133203181559
+    },
+    {
+      "name": "show translation",
+      "targetTime": 3.549133203181559
+    },
+    {
+      "name": "show formula",
+      "targetTime": 5.149133203181558
+    },
+    {
+      "name": "hide scene",
+      "targetTime": 15.785918926410625
+    },
+    {
+      "name": "scene end",
+      "targetTime": 16.896377510350856
+    }
+  ],
+  "seed": 1756463315
+}

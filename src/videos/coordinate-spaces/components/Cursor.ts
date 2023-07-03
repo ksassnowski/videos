@@ -8,7 +8,11 @@ import {
 } from '@motion-canvas/core/lib/signals';
 import { ThreadGenerator } from '@motion-canvas/core/lib/threading';
 import { easeInBack, easeOutBack } from '@motion-canvas/core/lib/tweening';
-import { PossibleVector2, Vector2 } from '@motion-canvas/core/lib/types';
+import {
+  PossibleVector2,
+  SimpleVector2Signal,
+  Vector2,
+} from '@motion-canvas/core/lib/types';
 
 import { translate } from '@common/utils/translate';
 
@@ -42,18 +46,21 @@ export class Cursor extends Img {
   }
 
   public moveToPosition(
-    position: PossibleVector2 | Node,
+    position: SignalValue<PossibleVector2> | Node,
     duration: number,
   ): ThreadGenerator {
-    let to: Vector2;
+    let to: SimpleVector2Signal<any>;
 
     if (position instanceof Node) {
-      to = position.absolutePosition();
+      to = position.absolutePosition;
     } else {
-      to = new Vector2(position);
+      to = Vector2.createSignal(position);
     }
 
-    return this.absolutePosition(to.sub(this.cursorTipOffset), duration);
+    return this.absolutePosition(
+      () => to().sub(this.cursorTipOffset),
+      duration,
+    );
   }
 
   public stickTo(position: () => Vector2) {

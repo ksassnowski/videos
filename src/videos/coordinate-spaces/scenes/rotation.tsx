@@ -30,6 +30,7 @@ import {
   rotationMatrixCombinedTex,
   rotationMatrixSeparateTex,
 } from '../components';
+import { swapMatrices } from '../utils';
 
 export default makeScene2D(function* (view) {
   const scene = createRef<SceneContainer>();
@@ -267,11 +268,7 @@ export default makeScene2D(function* (view) {
   );
 
   yield* waitUntil('show separate matrices');
-  yield* sequence(
-    0.5,
-    rotationMatrix().scale(0, 0.6, easeInBack),
-    rotationMatrixSeparate().scale(1, 0.6, easeOutBack),
-  );
+  yield* swapMatrices(rotationMatrix, rotationMatrixSeparate);
 
   yield* waitUntil('highlight P');
   originDot().size(12).scale(0).zIndex(1);
@@ -339,6 +336,9 @@ export default makeScene2D(function* (view) {
     rotationMatrixSeparate().scale(0, 0.6, easeInBack),
     rotationMatrix().scale(1, 0.6, easeOutBack),
   );
+
+  yield* waitUntil('center formula');
+  yield* all(scene().position.y(900, 1), rotationMatrix().position.y(0, 1));
 
   yield* waitUntil('scene end');
 });

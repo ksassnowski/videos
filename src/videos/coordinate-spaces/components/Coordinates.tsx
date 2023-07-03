@@ -54,12 +54,12 @@ export class Coordinates extends Layout {
         <Txt text={'('} fill={theme.colors.Gray2} />
         <Txt
           text={() => this.coordinates().x.toFixed(this.decimals()).toString()}
-          fill={this.xColor()}
+          fill={this.xColor}
         />
         <Txt text={','} fill={theme.colors.Gray2} />
         <Txt
           text={() => this.coordinates().y.toFixed(this.decimals()).toString()}
-          fill={this.yColor()}
+          fill={this.yColor}
         />
         <Txt text={')'} fill={theme.colors.Gray2} />
       </>,

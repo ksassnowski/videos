@@ -5,6 +5,7 @@ export * from './Cursor';
 export * from './Coordinates';
 export * from './CoordinateSpace';
 export * from './Formulas';
+export * from './Grid';
 export * from './Objects';
 export * from './Pill';
 export * from './SceneContainer';

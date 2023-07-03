@@ -7,14 +7,15 @@
     "build": "tsc && vite build"
   },
   "dependencies": {
-    "@motion-canvas/2d": "^3.5.0",
-    "@motion-canvas/core": "^3.4.0"
+    "@motion-canvas/2d": "^3.9.0",
+    "@motion-canvas/core": "^3.9.0",
+    "@motion-canvas/ffmpeg": "^1.1.1"
   },
   "devDependencies": {
     "@ksassnowski/motion-canvas-camera": "github:ksassnowski/motion-canvas-camera#main",
     "@ksassnowski/motion-canvas-components": "^0.4.1",
-    "@motion-canvas/ui": "^3.4.0",
-    "@motion-canvas/vite-plugin": "^3.4.0",
+    "@motion-canvas/ui": "^3.9.0",
+    "@motion-canvas/vite-plugin": "^3.9.0",
     "@trivago/prettier-plugin-sort-imports": "^4.1.0",
     "@types/glob": "^8.1.0",
     "@types/node": "^18.14.1",

@@ -11,6 +11,14 @@ export const vectorTex = `
 \\end{bmatrix}
 `;
 
+export const rMatrixTex = `
+\\begin{bmatrix}
+R_x \\\\
+R_y \\\\
+1
+\\end{bmatrix}
+`;
+
 export const simpleFormulaTex = `
 circlePos(P, R) = \\begin{bmatrix}
 P_x + R_x \\\\ 
@@ -69,15 +77,15 @@ export const undoTranslationToOriginTex = `
 export const rotationMatrixSeparateTex = `${undoTranslationToOriginTex}${rotationMatrixTex}${translationToOriginTex}`;
 
 export const translationMatrixFormulaTex = `
-circlePos(P, R) = ${translationMatrixTex}\\begin{bmatrix}R_x \\\\ R_y \\\\ 1 \\end{bmatrix}
+circlePos(P, R) = ${translationMatrixTex}${rMatrixTex}
 `;
 
 export const scalingTranslationFormulaTex = `
-circlePos(P, R, S) = ${translationMatrixTex}${scalingMatrixTex}\\begin{bmatrix}R_x \\\\ R_y \\\\ 1 \\end{bmatrix}
+circlePos(P, R, S) = ${translationMatrixTex}${scalingMatrixTex}${rMatrixTex}
 `;
 
 export const scalingTranslationFormulaCombinedTex = `
-circlePos(P, R, S) = ${scalingTranslationMatrixTex}\\begin{bmatrix}R_x \\\\ R_y \\\\ 1 \\end{bmatrix}
+circlePos(P, R, S) = ${scalingTranslationMatrixTex}${rMatrixTex}
 `;
 
 export const rotationMatrixCombinedTex = `
@@ -85,6 +93,22 @@ export const rotationMatrixCombinedTex = `
 \\cos \\theta & -\\sin \\theta & P_x - P_x \\cdot \\cos \\theta + P_y \\cdot \\sin \\theta \\\\ 
 \\sin \\theta & \\cos \\theta & P_y - P_y \\cdot \\cos \\theta - P_x \\cdot \\sin\\theta
 \\\\ 0 & 0 & 1\\end{bmatrix}
+`;
+
+export const localToParentTex = `
+\\begin{bmatrix}
+S_x \\cdot \\cos\\theta & -S_y \\cdot \\sin\\theta & P_x \\\\
+S_x \\cdot \\sin\\theta & S_y \\cdot \\cos\\theta & P_y \\\\
+0 & 0 & 1
+\\end{bmatrix}
+`;
+
+export const finalFormulaSeparateTex = `
+circlePos(P, R, S, \\theta) = ${rotationMatrixCombinedTex}${scalingTranslationMatrixTex}${rMatrixTex}
+`;
+
+export const localToParentFormula = `
+circlePos(P, R, S, \\theta) = ${localToParentTex}${rMatrixTex}
 `;
 
 export const RelativePositionVector = (props: LatexProps) => (

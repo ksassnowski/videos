@@ -1,0 +1,166 @@
+{
+  "version": 0,
+  "timeEvents": [
+    {
+      "name": "show simple matrix",
+      "targetTime": 8.900054447989046
+    },
+    {
+      "name": "hide simple matrix",
+      "targetTime": 11.53868845071732
+    },
+    {
+      "name": "decompose rotation",
+      "targetTime": 14.39991562692147
+    },
+    {
+      "name": "show formula",
+      "targetTime": 17.52911503145367
+    },
+    {
+      "name": "decompose matrix",
+      "targetTime": 25.76844226630782
+    },
+    {
+      "name": "show scene",
+      "targetTime": 35.60221931273462
+    },
+    {
+      "name": "scale position",
+      "targetTime": 39.928047408772315
+    },
+    {
+      "name": "translate position",
+      "targetTime": 44.77980919404515
+    },
+    {
+      "name": "translate back",
+      "targetTime": 48.51491047214783
+    },
+    {
+      "name": "rotate position",
+      "targetTime": 51.64944347048206
+    },
+    {
+      "name": "translate again",
+      "targetTime": 54.52357076161316
+    },
+    {
+      "name": "hide rect",
+      "targetTime": 57.10455534927332
+    },
+    {
+      "name": "hide scene",
+      "targetTime": 58.48127424308686
+    },
+    {
+      "name": "highlight matrices",
+      "targetTime": 60.56373036363567
+    },
+    {
+      "name": "fade matrices",
+      "targetTime": 63.41305151809147
+    },
+    {
+      "name": "hide translation",
+      "targetTime": 65.7071814973674
+    },
+    {
+      "name": "show scene 2",
+      "targetTime": 69.24607671602202
+    },
+    {
+      "name": "scale position 2",
+      "targetTime": 73.56167193963469
+    },
+    {
+      "name": "rotate position 2",
+      "targetTime": 74.5116719396347
+    },
+    {
+      "name": "translate position 2",
+      "targetTime": 75.4616719396347
+    },
+    {
+      "name": "hide rect 2",
+      "targetTime": 76.95966927777411
+    },
+    {
+      "name": "show full matrix",
+      "targetTime": 83.4776725034506
+    },
+    {
+      "name": "translate position 3",
+      "targetTime": 86.78553302208276
+    },
+    {
+      "name": "undo translate",
+      "targetTime": 89.4966823723429
+    },
+    {
+      "name": "rotate position 3",
+      "targetTime": 91.6079603054492
+    },
+    {
+      "name": "highlight rotation matrix",
+      "targetTime": 99.2929074667165
+    },
+    {
+      "name": "show simplified formula",
+      "targetTime": 101.64052408576714
+    },
+    {
+      "name": "rotate position 4",
+      "targetTime": 103.85035515308412
+    },
+    {
+      "name": "translate position 4",
+      "targetTime": 110.36235112685291
+    },
+    {
+      "name": "hide rect 3",
+      "targetTime": 112.21152476621728
+    },
+    {
+      "name": "hide scene 2",
+      "targetTime": 121.46774860785932
+    },
+    {
+      "name": "show final matrix",
+      "targetTime": 126.56018232924042
+    },
+    {
+      "name": "show formula part",
+      "targetTime": 130.50866249557427
+    },
+    {
+      "name": "highlight theta",
+      "targetTime": 132.9373736245891
+    },
+    {
+      "name": "hide highlight",
+      "targetTime": 134.39095657046155
+    },
+    {
+      "name": "enter hero",
+      "targetTime": 134.99095657046155
+    },
+    {
+      "name": "show question marks",
+      "targetTime": 138.54934850658358
+    },
+    {
+      "name": "hide question marks",
+      "targetTime": 139.83522900774614
+    },
+    {
+      "name": "exit hero",
+      "targetTime": 141.58671724344538
+    },
+    {
+      "name": "scene end",
+      "targetTime": 152.42218064171763
+    }
+  ],
+  "seed": 1339536141
+}

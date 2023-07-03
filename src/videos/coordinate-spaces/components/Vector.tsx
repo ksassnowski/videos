@@ -1,4 +1,4 @@
-import { Line, LineProps } from '@motion-canvas/2d/lib/components';
+import { Line, LineProps, Ray } from '@motion-canvas/2d/lib/components';
 import { SignalValue } from '@motion-canvas/core/lib/signals';
 import { PossibleVector2, Vector2 } from '@motion-canvas/core/lib/types';
 
@@ -10,11 +10,12 @@ export interface VectorProps extends LineProps {
 }
 
 export const Vector = ({ from = Vector2.zero, to, ...rest }: VectorProps) => (
-  <Line
+  <Ray
     arrowSize={13}
     lineWidth={4}
     stroke={theme.colors.White}
-    points={() => [from, to]}
+    from={from}
+    to={to}
     endArrow
     {...rest}
   />

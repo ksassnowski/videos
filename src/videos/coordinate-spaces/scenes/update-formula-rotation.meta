@@ -2,77 +2,41 @@
   "version": 0,
   "timeEvents": [
     {
-      "name": "highlight S",
-      "targetTime": 2.1062692085919927
+      "name": "highlight theta",
+      "targetTime": 3.5795927132306056
     },
     {
-      "name": "highlight scaling matrix",
-      "targetTime": 4.303509061184368
+      "name": "highlight formula",
+      "targetTime": 5.578103981849845
     },
     {
-      "name": "move matrix",
-      "targetTime": 6.949333186142626
+      "name": "hide highlight",
+      "targetTime": 7.498842874408115
     },
     {
-      "name": "highlight multiplication",
-      "targetTime": 7.990741812114686
+      "name": "show formula combined",
+      "targetTime": 11.066868631252083
     },
     {
-      "name": "show example scene",
-      "targetTime": 9.212565559287821
+      "name": "enter hero",
+      "targetTime": 14.100044501539966
     },
     {
-      "name": "show scale",
-      "targetTime": 11.066193317333063
+      "name": "show question marks",
+      "targetTime": 17.585600475673584
     },
     {
-      "name": "show translation",
-      "targetTime": 12.14561215933929
+      "name": "hide question marks",
+      "targetTime": 19.780695872464545
     },
     {
-      "name": "hide scene",
-      "targetTime": 14.937588607583587
-    },
-    {
-      "name": "show combined",
-      "targetTime": 16.92243104152273
-    },
-    {
-      "name": "hide matrix",
-      "targetTime": 19.071149423302284
-    },
-    {
-      "name": "show scene 2",
-      "targetTime": 20.591970594135503
-    },
-    {
-      "name": "show vector formula",
-      "targetTime": 21.6919705941355
-    },
-    {
-      "name": "show coordinates",
-      "targetTime": 23.348692125432436
-    },
-    {
-      "name": "show pos calculation",
-      "targetTime": 24.630872109605498
-    },
-    {
-      "name": "more examples",
-      "targetTime": 26.196743791154784
-    },
-    {
-      "name": "center scene",
-      "targetTime": 30.128174204985978
-    },
-    {
-      "name": "hide scene 2",
-      "targetTime": 31.02817420498598
+      "name": "exit hero",
+      "targetTime": 21.764190940934924
     },
     {
       "name": "scene end",
-      "targetTime": 32.928174204985986
+      "targetTime": 23.264190940934924
     }
   ],
-  "seed": 1237528989
+  "seed": 496703653
 }
