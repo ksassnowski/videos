@@ -17,7 +17,10 @@ export interface GridProps extends ShapeProps {
   drawAxis?: SignalValue<boolean>;
   axisLineWidth?: SignalValue<number>;
   axisStroke?: SignalValue<PossibleCanvasStyle>;
+  start?: SignalValue<number>;
   end?: SignalValue<number>;
+  axisStart?: SignalValue<number>;
+  axisEnd?: SignalValue<number>;
 }
 
 export class Grid extends Shape {
@@ -29,9 +32,21 @@ export class Grid extends Shape {
   @signal()
   public declare readonly drawAxis: SimpleSignal<boolean, this>;
 
+  @initial(0)
+  @signal()
+  public declare readonly start: SimpleSignal<number, this>;
+
   @initial(1)
   @signal()
   public declare readonly end: SimpleSignal<number, this>;
+
+  @initial(null)
+  @signal()
+  public declare readonly axisStart: SimpleSignal<number, this>;
+
+  @initial(null)
+  @signal()
+  public declare readonly axisEnd: SimpleSignal<number, this>;
 
   @initial(3)
   @signal()
@@ -51,41 +66,74 @@ export class Grid extends Shape {
 
     const spacing = this.spacing();
     const drawAxis = this.drawAxis();
+    const start = this.start();
     const end = this.end();
     const size = this.computedSize().scale(0.5);
     const steps = size.div(spacing).floored;
 
     for (let x = -steps.x; x <= steps.x; x++) {
-      const to = map(-size.height, size.height, end);
-      this.drawLine(context, spacing.x * x, -size.height, spacing.x * x, to);
+      const [from, to] = this.mapPoints(-size.height, size.height);
+
+      context.beginPath();
+      context.moveTo(spacing.x * x, from);
+      context.lineTo(spacing.x * x, to);
+      context.stroke();
     }
 
     for (let y = -steps.y; y <= steps.y; y++) {
-      const to = map(-size.width, size.width, end);
-      this.drawLine(context, -size.width, spacing.y * y, to, spacing.y * y);
+      const [from, to] = this.mapPoints(-size.width, size.width);
+
+      context.beginPath();
+      context.moveTo(from, spacing.y * y);
+      context.lineTo(to, spacing.y * y);
+      context.stroke();
     }
 
     if (drawAxis) {
       context.lineWidth = this.axisLineWidth();
       context.strokeStyle = resolveCanvasStyle(this.axisStroke(), context);
+      const start = this.axisStart();
+      const end = this.axisEnd();
 
-      this.drawLine(
-        context,
-        0,
-        size.height,
-        0,
-        map(size.height, -size.height, end),
-      );
-      this.drawLine(
-        context,
-        -size.width,
-        0,
-        map(-size.width, size.width, end),
-        0,
-      );
+      let from = map(-size.height, size.height, start);
+      let to = map(-size.height, size.height, end);
+
+      if (to < from) {
+        [from, to] = [to, from];
+      }
+
+      this.drawLine(context, 0, from, 0, to);
+
+      from = map(-size.width, size.width, start);
+      to = map(-size.width, size.width, end);
+
+      if (to < from) {
+        [from, to] = [to, from];
+      }
+
+      this.drawLine(context, from, 0, to, 0);
     }
 
     context.restore();
+  }
+
+  private getDefaultAxisStart() {
+    return this.start();
+  }
+
+  private getDefaultAxisEnd() {
+    return this.end();
+  }
+
+  private mapPoints(start: number, end: number): [number, number] {
+    let from = map(start, end, this.start());
+    let to = map(start, end, this.end());
+
+    if (to < from) {
+      [from, to] = [to, from];
+    }
+
+    return [from, to];
   }
 
   private drawLine(

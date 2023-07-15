@@ -1,4 +1,4 @@
-import { Circle, Latex, Line, Rect, Txt, makeScene2D } from '@motion-canvas/2d';
+import { Circle, Line, Rect, Txt, makeScene2D } from '@motion-canvas/2d';
 import {
   Vector2,
   createRef,
@@ -9,10 +9,7 @@ import {
   waitUntil,
 } from '@motion-canvas/core';
 import { all } from '@motion-canvas/core/lib/flow';
-import { easeOutCubic, tween } from '@motion-canvas/core/lib/tweening';
-import { debug } from '@motion-canvas/core/lib/utils';
-
-import { texColor } from '@common/utils';
+import { easeOutCubic } from '@motion-canvas/core/lib/tweening';
 
 import theme from '@theme';
 
@@ -26,8 +23,6 @@ import {
   SceneContainer,
   SceneTree,
   TransformationRig,
-  Vector,
-  localToParentTex,
 } from '../components';
 
 export default makeScene2D(function* (view) {
@@ -257,7 +252,7 @@ export default makeScene2D(function* (view) {
   yield* waitUntil('hide objects');
   yield* sequence(
     0.1,
-    scene().sceneTree.scale(0, 0.6, easeInBack),
+    sceneTree.scale(0, 0.6, easeInBack),
     circle().scale(0, 0.6, easeInBack),
     rect().scale(0, 0.6, easeInBack),
     scene().camera.restore(1),

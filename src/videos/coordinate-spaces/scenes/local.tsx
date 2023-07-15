@@ -21,6 +21,7 @@ import {
   RectCircleSceneTree,
   RectObject,
   SceneContainer,
+  SceneTree,
   TranslationMatrixFormula,
   Vector,
 } from '../components';
@@ -46,11 +47,13 @@ export default makeScene2D(function* (view) {
     smoothCorners: true,
   };
 
+  const sceneTree = (
+    <RectCircleSceneTree position={[-370, -305]} />
+  ) as SceneTree;
+
   yield view.add(
     <>
-      <SceneContainer ref={scene} showAxis>
-        <RectCircleSceneTree position={[-370, -305]} />
-
+      <SceneContainer ref={scene} sceneTree={sceneTree} showAxis>
         <RectObject ref={rect} zIndex={1} scale={0} />
 
         <Coordinates

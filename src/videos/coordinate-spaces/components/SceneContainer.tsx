@@ -2,25 +2,24 @@ import { CameraView } from '@ksassnowski/motion-canvas-camera';
 
 import {
   Layout,
-  Line,
   Rect,
   RectProps,
-} from '@motion-canvas/2d/lib/components';
-import {
+  Shape,
+  Txt,
   colorSignal,
   initial,
   signal,
   vector2Signal,
-} from '@motion-canvas/2d/lib/decorators';
-import { sequence } from '@motion-canvas/core';
-import { SignalValue, SimpleSignal } from '@motion-canvas/core/lib/signals';
+} from '@motion-canvas/2d';
 import {
   ColorSignal,
   PossibleColor,
   PossibleVector2,
+  SignalValue,
+  SimpleSignal,
   Vector2Signal,
-} from '@motion-canvas/core/lib/types';
-import { makeRef } from '@motion-canvas/core/lib/utils';
+  makeRef,
+} from '@motion-canvas/core';
 
 import theme from '@theme';
 
@@ -35,7 +34,13 @@ export interface SceneContainerProps extends RectProps {
   axisStroke?: SignalValue<PossibleColor>;
   axisLineWidth?: SignalValue<number>;
   gridEnd?: SignalValue<number>;
-  sceneTree?: SceneTree;
+  gridStart?: SignalValue<number>;
+  axisStart?: SignalValue<number>;
+  axisEnd?: SignalValue<number>;
+  sceneTree?: SignalValue<SceneTree>;
+  labelScale?: SignalValue<PossibleVector2>;
+  labelText?: SignalValue<string>;
+  labelColor?: SignalValue<PossibleColor>;
 }
 
 export class SceneContainer extends Rect {
@@ -59,15 +64,40 @@ export class SceneContainer extends Rect {
   @signal()
   public declare readonly gridEnd: SimpleSignal<number, this>;
 
+  @initial(0)
+  @signal()
+  public declare readonly gridStart: SimpleSignal<number, this>;
+
+  @initial(null)
+  @signal()
+  public declare readonly axisStart: SimpleSignal<number, this>;
+
+  @initial(null)
+  @signal()
+  public declare readonly axisEnd: SimpleSignal<number, this>;
+
   @initial(3)
   @signal()
   public declare readonly axisLineWidth: SimpleSignal<number, this>;
 
+  @vector2Signal('label')
+  public declare readonly labelScale: Vector2Signal<this>;
+
+  @initial('World Space')
+  @signal()
+  public declare readonly labelText: SimpleSignal<string, this>;
+
+  @initial(theme.colors.Green1)
+  @colorSignal()
+  public declare readonly labelColor: ColorSignal<this>;
+
   @vector2Signal('origin')
   public declare readonly origin: Vector2Signal<this>;
 
+  @signal()
+  public declare readonly sceneTree: SimpleSignal<SceneTree, this>;
+
   public readonly camera: CameraView;
-  public readonly sceneTree: Layout;
 
   public constructor(props: SceneContainerProps) {
     super({
@@ -79,7 +109,6 @@ export class SceneContainer extends Rect {
       smoothCorners: true,
       radius: 18,
       clip: true,
-      layout: true,
       ...props,
     });
 
@@ -99,7 +128,10 @@ export class SceneContainer extends Rect {
             drawAxis={this.showAxis}
             axisLineWidth={this.axisLineWidth}
             axisStroke={this.axisStroke}
+            axisStart={() => this.axisStart()}
+            axisEnd={() => this.axisEnd()}
             end={this.gridEnd}
+            start={this.gridStart}
             layout={false}
           />
 
@@ -115,16 +147,52 @@ export class SceneContainer extends Rect {
           smoothCorners
         />
 
-        {props.sceneTree && (
-          <Layout
-            ref={makeRef(this, 'sceneTree')}
-            layout={false}
-            topLeft={[-370, -305]}
-          >
-            {props.sceneTree}
-          </Layout>
-        )}
+        <Shape
+          scale={1.5}
+          topLeft={() =>
+            this.topLeft()
+              .transformAsPoint(this.localToParent().inverse())
+              .add(20)
+          }
+          spawner={() => [this.sceneTree()]}
+          layout
+        />
+
+        <Rect
+          topRight={() =>
+            this.topRight()
+              .transformAsPoint(this.localToParent().inverse())
+              .add([-20, 20])
+          }
+          fill={theme.colors.Gray5}
+          stroke={theme.colors.Gray4}
+          padding={[10, 26, 8, 26]}
+          lineWidth={3}
+          radius={10}
+          width={240}
+          height={55}
+          justifyContent={'center'}
+          scale={this.labelScale}
+          smoothCorners
+          layout
+        >
+          <Txt
+            text={this.labelText}
+            fill={this.labelColor}
+            fontFamily={theme.fonts.sans}
+            fontSize={32}
+            letterSpacing={1.1}
+          />
+        </Rect>
       </>,
     );
+  }
+
+  public getDefaultAxisStart() {
+    return this.gridStart();
+  }
+
+  public getDefaultAxisEnd() {
+    return this.gridEnd();
   }
 }

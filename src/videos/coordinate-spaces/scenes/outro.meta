@@ -1,0 +1,22 @@
+{
+  "version": 0,
+  "timeEvents": [
+    {
+      "name": "show logo",
+      "targetTime": 1.0173827543157166
+    },
+    {
+      "name": "fade logo",
+      "targetTime": 12.124416456793286
+    },
+    {
+      "name": "fade text",
+      "targetTime": 13.124416456793286
+    },
+    {
+      "name": "scene end",
+      "targetTime": 21.95417141732875
+    }
+  ],
+  "seed": 1863061018
+}

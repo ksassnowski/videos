@@ -7,7 +7,6 @@ import {
   sequence,
   waitUntil,
 } from '@motion-canvas/core';
-import { all, waitFor } from '@motion-canvas/core/lib/flow';
 
 import theme from '@theme';
 
@@ -23,7 +22,7 @@ export default makeScene2D(function* (view) {
   const arrowWrapper = createRef<Node>();
 
   view.add(
-    <SceneContainer ref={scene} scale={0} showAxis>
+    <SceneContainer ref={scene} showAxis>
       <RectObject ref={rect} position={[-150, 200]} scale={0} />
 
       <Node ref={arrowWrapper}>
@@ -32,7 +31,7 @@ export default makeScene2D(function* (view) {
 
       <Vector
         ref={absoluteVector}
-        to={[300, -200]}
+        to={() => rect().position().add([300, -200])}
         end={0}
         stroke={theme.colors.Green1}
       />
@@ -53,15 +52,12 @@ export default makeScene2D(function* (view) {
 
       <Coordinates
         ref={absoluteCoordinates}
-        coordinates={[300, -200]}
-        left={() => absoluteVector().to().add([15, 0])}
+        coordinates={() => rect().position().add([300, -200])}
+        bottom={() => absoluteVector().to().add([0, -25])}
         scale={0}
       />
     </SceneContainer>,
   );
-
-  yield* waitUntil('show scene');
-  yield* scene().scale(1, 0.8, easeOutBack);
 
   yield* waitUntil('show pos');
   yield* sequence(

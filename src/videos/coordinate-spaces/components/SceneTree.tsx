@@ -1,29 +1,16 @@
-import {
-  Line,
-  Node,
-  Rect,
-  RectProps,
-  Shape,
-  Txt,
-} from '@motion-canvas/2d/lib/components';
-import {
-  initial,
-  signal,
-  vector2Signal,
-} from '@motion-canvas/2d/lib/decorators';
-import { sequence } from '@motion-canvas/core/lib/flow';
-import {
-  SignalValue,
-  SimpleSignal,
-  createComputed,
-} from '@motion-canvas/core/lib/signals';
+import { SurroundingRectangle } from '@ksassnowski/motion-canvas-components';
+
+import { Node, Rect, RectProps, Txt } from '@motion-canvas/2d/lib/components';
+import { colorSignal, initial, signal } from '@motion-canvas/2d/lib/decorators';
+import { Vector2, all, easeInBack } from '@motion-canvas/core';
+import { chain, sequence } from '@motion-canvas/core/lib/flow';
+import { SignalValue, SimpleSignal } from '@motion-canvas/core/lib/signals';
 import { ThreadGenerator } from '@motion-canvas/core/lib/threading';
 import { easeOutBack } from '@motion-canvas/core/lib/tweening';
 import {
-  Origin,
+  ColorSignal,
+  PossibleColor,
   PossibleVector2,
-  Vector2,
-  Vector2Signal,
 } from '@motion-canvas/core/lib/types';
 import { makeRef, useLogger } from '@motion-canvas/core/lib/utils';
 
@@ -33,15 +20,16 @@ import { Pill } from './Pill';
 
 export interface SceneTreeObject {
   id: string;
-  icon: Node;
+  icon?: Node;
   label: string;
   children?: SceneTreeObject[];
 }
 
 export interface SceneTreeProps extends RectProps {
-  objects?: SceneTreeObject[];
+  objects?: SignalValue<SceneTreeObject[]>;
   indentMargin?: SignalValue<number>;
   lineGap?: SignalValue<PossibleVector2>;
+  containerFill?: SignalValue<PossibleColor>;
 }
 
 export class SceneTree extends Rect {
@@ -49,35 +37,52 @@ export class SceneTree extends Rect {
   @signal()
   public declare readonly objects: SimpleSignal<SceneTreeObject[], this>;
 
-  @initial(35)
+  @initial(24)
   @signal()
   public declare readonly indentMargin: SimpleSignal<number, this>;
 
-  @initial(new Vector2(10, 4))
-  @vector2Signal('lineGap')
-  public declare readonly lineGap: Vector2Signal<this>;
+  @initial(`${theme.colors.Gray5}aa`)
+  @colorSignal()
+  public declare readonly containerFill: ColorSignal<this>;
 
   private readonly objectRefs: Record<string, Rect> = {};
-  private readonly lineRefs: Line[] = [];
   private readonly container: Rect;
   private readonly title: Txt;
+  private readonly highlightRect: SurroundingRectangle;
 
   public constructor(props: SceneTreeProps) {
-    super(props);
+    super({
+      layout: true,
+      ...props,
+    });
 
     this.container = (
       <Rect
-        fill={theme.colors.Gray5}
+        fill={this.containerFill}
+        gap={8}
         lineWidth={2}
         stroke={theme.colors.Gray4}
-        padding={[10, 5, 5, 10]}
+        padding={[10, 20, 10, 16]}
         direction={'column'}
+        alignItems={'start'}
         radius={10}
-        gap={5}
         smoothCorners
         layout
       />
     ) as Rect;
+
+    this.highlightRect = (
+      <SurroundingRectangle
+        nodes={[]}
+        zIndex={-1}
+        radius={8}
+        buffer={[20, 9]}
+        fill={`${theme.colors.Green1}aa`}
+        scale={0}
+        smoothCorners
+        layout={false}
+      />
+    ) as SurroundingRectangle;
 
     this.title = (
       <Txt
@@ -86,12 +91,27 @@ export class SceneTree extends Rect {
         fontWeight={500}
         fontFamily={theme.fonts.mono}
         fill={theme.colors.Gray2}
-        marginLeft={5}
       />
     ) as Txt;
 
     this.add(this.container);
     this.container.add(this.title);
+    this.container.add(this.highlightRect);
+    this.container.add(
+      <Pill
+        ref={makeRef(this.objectRefs, 'root')}
+        text={'Root'}
+        textColor={theme.colors.Brown2}
+        icon={
+          <Rect
+            stroke={theme.colors.Brown2}
+            rotation={45}
+            size={6}
+            lineWidth={1}
+          />
+        }
+      />,
+    );
     this.addChildren();
   }
 
@@ -110,7 +130,6 @@ export class SceneTree extends Rect {
     this.opacity(1);
     this.container.scale(0);
     objects.map((node) => node.scale(0));
-    this.lineRefs.map((line) => line.end(0));
 
     return sequence(
       duration * 0.7,
@@ -119,11 +138,14 @@ export class SceneTree extends Rect {
         0.1,
         ...objects.map((node) => node.scale(1, duration, easeOutBack)),
       ),
-      sequence(0.15, ...this.lineRefs.map((line) => line.end(1, duration))),
     );
   }
 
-  public highlightNode(id: string, duration: number): ThreadGenerator {
+  public highlightNode(
+    id: string,
+    duration: number,
+    color?: PossibleColor,
+  ): ThreadGenerator {
     const node = this.objectRefs[id];
 
     if (!node) {
@@ -131,18 +153,38 @@ export class SceneTree extends Rect {
       return;
     }
 
-    return node.scale(1.2, duration);
+    let animations: ThreadGenerator[] = [];
+    const rectHidden = this.highlightRect.scale().exactlyEquals(Vector2.zero);
+
+    if (rectHidden) {
+      if (color) {
+        this.highlightRect.fill(`${color}88`);
+      }
+      this.highlightRect.nodes(node);
+      animations.push(this.highlightRect.scale(1, duration));
+    } else {
+      if (color) {
+        animations.push(this.highlightRect.fill(`${color}88`, duration));
+      }
+      animations.push(this.highlightRect.nodes(node, duration));
+    }
+
+    return all(...animations);
   }
 
-  public resetNode(id: string, duration: number): ThreadGenerator {
-    const node = this.objectRefs[id];
+  public resetHighlight(duration = 0.7): ThreadGenerator {
+    return this.highlightRect.scale(0, duration);
+  }
 
-    if (!node) {
-      useLogger().error(`Attempting to highlight node with unknown id ${id}`);
-      return;
-    }
-
-    return node.scale(1, duration);
+  public insertObject(object: SceneTreeObject, level = 0) {
+    const pill = this.addObject(object, level);
+    const size = pill.size();
+    pill.size(0).scale(0).margin.top(-this.container.gap().y);
+    return all(
+      pill.size(size, 0.5),
+      pill.scale(1, 0.7),
+      pill.margin.top(0, 0.3),
+    );
   }
 
   private addChildren(): void {
@@ -153,46 +195,24 @@ export class SceneTree extends Rect {
     }
   }
 
-  private addObject(object: SceneTreeObject, parent?: Shape, level = 0): void {
+  private addObject(object: SceneTreeObject, level = 0): Rect {
     const margin = this.indentMargin();
-    const lineGap = this.lineGap();
 
     const pill = (
       <Pill
         ref={makeRef(this.objectRefs, object.id)}
         text={object.label}
         icon={object.icon}
-        marginLeft={margin * level}
+        marginLeft={22 + margin * level}
       />
     ) as Rect;
 
     this.container.add(pill);
 
-    if (parent) {
-      const lineStart = createComputed(() =>
-        parent
-          .position()
-          .add(parent.getOriginDelta(Origin.BottomLeft).add([14, lineGap.y])),
-      );
-
-      this.add(
-        <Line
-          ref={makeRef(this.lineRefs, this.lineRefs.length)}
-          lineWidth={2}
-          stroke={theme.colors.Gray3}
-          points={() => [
-            lineStart(),
-            [lineStart().x, pill.position.y()],
-            [lineStart().x + margin - lineGap.x * 2, pill.position.y()],
-          ]}
-          radius={4}
-          layout={false}
-        />,
-      );
-    }
-
     for (const child of object.children ?? []) {
-      this.addObject(child, pill, level + 1);
+      this.addObject(child, level + 1);
     }
+
+    return pill;
   }
 }

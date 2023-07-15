@@ -2,10 +2,6 @@
   "version": 0,
   "timeEvents": [
     {
-      "name": "show scene",
-      "targetTime": 0.9542734095479455
-    },
-    {
       "name": "show pos",
       "targetTime": 3.6790272078277937
     },
@@ -19,15 +15,15 @@
     },
     {
       "name": "show absolute",
-      "targetTime": 13.218511379158993
+      "targetTime": 13.066632763030867
     },
     {
       "name": "hide objects",
-      "targetTime": 15.870974228671301
+      "targetTime": 19.13052299019029
     },
     {
       "name": "scene end",
-      "targetTime": 19.634161706605234
+      "targetTime": 20.390522990190277
     }
   ],
   "seed": 3400752081

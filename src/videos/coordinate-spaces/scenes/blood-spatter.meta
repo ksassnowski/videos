@@ -1,0 +1,166 @@
+{
+  "version": 0,
+  "timeEvents": [
+    {
+      "name": "enter chars",
+      "targetTime": 1.9242567093063565
+    },
+    {
+      "name": "attack",
+      "targetTime": 4.342800561889395
+    },
+    {
+      "name": "zoom on blood",
+      "targetTime": 5.6934585677145995
+    },
+    {
+      "name": "stop attack",
+      "targetTime": 7.272154437229313
+    },
+    {
+      "name": "reset camera",
+      "targetTime": 7.505851716975325
+    },
+    {
+      "name": "show code",
+      "targetTime": 8.209648698444107
+    },
+    {
+      "name": "show scene tree",
+      "targetTime": 11.389975782758516
+    },
+    {
+      "name": "focus",
+      "targetTime": 14.544696160000052
+    },
+    {
+      "name": "highlight code",
+      "targetTime": 15.874119196988234
+    },
+    {
+      "name": "highlight goblin sprite node",
+      "targetTime": 16.874119196988232
+    },
+    {
+      "name": "highlight goblin node",
+      "targetTime": 18.67590807887724
+    },
+    {
+      "name": "hide highlight",
+      "targetTime": 20.19546031042993
+    },
+    {
+      "name": "reset scene",
+      "targetTime": 23.784052123882542
+    },
+    {
+      "name": "goblin local space",
+      "targetTime": 24.584052123882543
+    },
+    {
+      "name": "show coords",
+      "targetTime": 29.02590340218936
+    },
+    {
+      "name": "show full scene",
+      "targetTime": 36.32841728934031
+    },
+    {
+      "name": "focus 2",
+      "targetTime": 42.992931368329735
+    },
+    {
+      "name": "highlight code 2",
+      "targetTime": 44.547604851473665
+    },
+    {
+      "name": "insert sprite",
+      "targetTime": 48.17156420814058
+    },
+    {
+      "name": "reset",
+      "targetTime": 56.38774457952803
+    },
+    {
+      "name": "zoom out camera",
+      "targetTime": 64.50840442004989
+    },
+    {
+      "name": "show world origin",
+      "targetTime": 66.16127146029272
+    },
+    {
+      "name": "attack 2",
+      "targetTime": 67.27349011463403
+    },
+    {
+      "name": "zoom in",
+      "targetTime": 70.62349011463402
+    },
+    {
+      "name": "move",
+      "targetTime": 78.09929506691235
+    },
+    {
+      "name": "attack 3",
+      "targetTime": 78.89929506691234
+    },
+    {
+      "name": "move 2",
+      "targetTime": 81.39929506691234
+    },
+    {
+      "name": "attack 4",
+      "targetTime": 82.19929506691234
+    },
+    {
+      "name": "reset camera 2",
+      "targetTime": 85.30485776622123
+    },
+    {
+      "name": "focus 3",
+      "targetTime": 86.50485776622124
+    },
+    {
+      "name": "show code 2",
+      "targetTime": 87.31984891534226
+    },
+    {
+      "name": "use gobo pos",
+      "targetTime": 89.72909921888305
+    },
+    {
+      "name": "use sprite pos",
+      "targetTime": 94.14303281361978
+    },
+    {
+      "name": "compute world pos",
+      "targetTime": 96.17556818446864
+    },
+    {
+      "name": "set global pos",
+      "targetTime": 106.36125607459219
+    },
+    {
+      "name": "unfocus",
+      "targetTime": 108.9908347102386
+    },
+    {
+      "name": "hide scene tree",
+      "targetTime": 119.8628290688044
+    },
+    {
+      "name": "zoom out forever",
+      "targetTime": 122.37591581089168
+    },
+    {
+      "name": "fade out",
+      "targetTime": 144.57609681511963
+    },
+    {
+      "name": "scene end",
+      "targetTime": 149.57609681511963
+    }
+  ],
+  "seed": 2381203524
+}

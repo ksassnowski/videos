@@ -18,7 +18,7 @@ import { texColor } from '@common/utils';
 import theme from '@theme';
 
 import { RectObject, ScalingMatrix } from '../components';
-import { swapMatrices } from '../utils';
+import { swapNodes } from '../utils';
 
 const createScalingMatrixTex = (
   scale: Vector2,
@@ -125,7 +125,7 @@ export default makeScene2D(function* (view) {
   );
 
   yield* waitUntil('use rect scale');
-  yield* swapMatrices(animatedMatrix(), scalingMatrix());
+  yield* swapNodes(animatedMatrix(), scalingMatrix());
 
   yield* waitUntil('highlight Sx');
   yield* highlightRect().scale(1, 0.7, easeOutBack);

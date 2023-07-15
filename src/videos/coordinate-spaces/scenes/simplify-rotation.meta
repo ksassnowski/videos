@@ -139,27 +139,27 @@
     },
     {
       "name": "hide highlight",
-      "targetTime": 134.39095657046155
+      "targetTime": 134.90490326489808
     },
     {
       "name": "enter hero",
-      "targetTime": 134.99095657046155
+      "targetTime": 135.50490326489808
     },
     {
       "name": "show question marks",
-      "targetTime": 138.54934850658358
+      "targetTime": 140.26231340946885
     },
     {
       "name": "hide question marks",
-      "targetTime": 139.83522900774614
+      "targetTime": 141.5481939106314
     },
     {
       "name": "exit hero",
-      "targetTime": 141.58671724344538
+      "targetTime": 149.4085445018134
     },
     {
       "name": "scene end",
-      "targetTime": 152.42218064171763
+      "targetTime": 152.0796735544189
     }
   ],
   "seed": 1339536141

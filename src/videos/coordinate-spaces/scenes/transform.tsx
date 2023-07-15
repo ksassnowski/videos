@@ -35,19 +35,8 @@ import {
   TransformationRig,
 } from '../components';
 
-const vectorTex = `
-\\begin{bmatrix}
-300 \\\\
--200
-\\end{bmatrix}`;
-
-const simpleFormulaTex = `
-circlePos(P, R) = \\begin{bmatrix}P_x + R_x \\\\ P_y + R_y\\end{bmatrix}
-`;
-
 export default makeScene2D(function* (view) {
-  const sceneContainer = createRef<Rect>();
-  const sceneTree = createRef<SceneTree>();
+  const sceneContainer = createRef<SceneContainer>();
   const rect = createRef<Rect>();
   const circle = createRef<Circle>();
   const circleGhost = createRef<Circle>();
@@ -67,6 +56,8 @@ export default makeScene2D(function* (view) {
   const circleCoords = createRef<Coordinates>();
   const rectCoords = createRef<Coordinates>();
 
+  const sceneTree = (<RectCircleSceneTree opacity={0} />) as SceneTree;
+
   const lineStyle: LineProps = {
     arrowSize: 13,
     lineWidth: 4,
@@ -74,14 +65,12 @@ export default makeScene2D(function* (view) {
 
   yield view.add(
     <>
-      <SceneContainer ref={sceneContainer} scale={0} showAxis>
-        <RectCircleSceneTree
-          ref={sceneTree}
-          position={[-370, -305]}
-          opacity={0}
-          scale={1.5}
-        />
-
+      <SceneContainer
+        ref={sceneContainer}
+        sceneTree={sceneTree}
+        scale={0}
+        showAxis
+      >
         <RectObject ref={rect} scale={0} zIndex={2} />
 
         <Coordinates
@@ -267,7 +256,7 @@ export default makeScene2D(function* (view) {
   yield* circle().scale(1, 0.6, easeOutBack);
 
   yield* waitUntil('show scene tree');
-  yield* sceneTree().create(0.6);
+  yield* sceneTree.create(0.6);
 
   yield* waitUntil('show cursor 1');
   yield* cursor().show();

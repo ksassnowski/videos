@@ -1,13 +1,16 @@
 import {
   Circle,
   CircleProps,
+  Icon,
+  IconProps,
   Rect,
   RectProps,
-} from '@motion-canvas/2d/lib/components';
+} from '@motion-canvas/2d';
 
 import theme from '@theme';
 
-import { SceneTree, SceneTreeProps } from './SceneTree';
+import { SceneTree, SceneTreeObject, SceneTreeProps } from './SceneTree';
+import { Goblin8x8, Hero8x8, Spear8x8 } from './Sprites';
 
 export const CircleObject = (props: CircleProps) => (
   <Circle size={60} fill={theme.colors.Red} {...props} />
@@ -54,7 +57,91 @@ export const RectCircleSceneTree = (props: SceneTreeProps) => (
         ],
       },
     ]}
-    scale={1.5}
     {...props}
   />
 );
+
+export const GameSceneTree = (props: SceneTreeProps) => {
+  const heroIcon = <Hero8x8 scale={2.4} />;
+  const spearIcon = <Spear8x8 scale={2.4} />;
+  const goblinIcon = <Goblin8x8 scale={2.4} />;
+
+  return (
+    <SceneTree
+      objects={[
+        { id: 'goblin', icon: goblinIcon, label: 'Goblin' },
+        {
+          id: 'hero',
+          icon: heroIcon,
+          label: 'Hero',
+          children: [
+            {
+              id: 'spear',
+              icon: spearIcon,
+              label: 'Spear',
+            },
+          ],
+        },
+      ]}
+      opacity={0}
+      {...props}
+    />
+  );
+};
+
+export const ExtendedGameSceneTree = (props: SceneTreeProps) => {
+  const heroIcon = <Hero8x8 scale={2.4} />;
+  const spearIcon = <Spear8x8 scale={2.4} />;
+  const goblinIcon = <Goblin8x8 scale={2.4} />;
+  const NodeIcon = () => (
+    <Icon
+      icon={'solar:box-minimalistic-outline'}
+      width={12}
+      color={theme.colors.Blue1}
+    />
+  );
+
+  return (
+    <SceneTree
+      objects={[
+        {
+          id: 'goblin',
+          icon: <NodeIcon />,
+          label: 'Goblin',
+          children: [
+            {
+              id: 'goblin-sprite',
+              icon: goblinIcon,
+              label: 'Sprite',
+            },
+          ],
+        },
+        {
+          id: 'hero',
+          icon: <NodeIcon />,
+          label: 'Hero',
+          children: [
+            {
+              id: 'hero-sprite',
+              label: 'Sprite',
+              icon: heroIcon,
+            },
+            {
+              id: 'spear',
+              icon: <NodeIcon />,
+              label: 'Spear',
+              children: [
+                {
+                  id: 'spear-sprite',
+                  label: 'Sprite',
+                  icon: spearIcon,
+                },
+              ],
+            },
+          ],
+        },
+      ]}
+      {...props}
+    />
+  );
+};

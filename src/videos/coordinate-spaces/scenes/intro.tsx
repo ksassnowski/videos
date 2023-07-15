@@ -129,8 +129,7 @@ export default makeScene2D(function* (view) {
           code={`
         const effect = new BloodSpatter();
         effect.position = goblinSprite.position;
-        scene.add(effect);
-      `}
+        scene.add(effect);`}
           lineHeight={'160%'}
           fontFamily={theme.fonts.mono}
           opacity={0}
@@ -194,12 +193,11 @@ export default makeScene2D(function* (view) {
   yield* hideSpear();
 
   yield* waitUntil('show code 1');
-  code().save();
   gameScene().save();
   yield* sequence(
     0.4,
     gameScene().position.y(700, 1),
-    all(code().position.y(0, 1, easeOutCubic), code().opacity(1, 1)),
+    all(code().position.y(-100, 1, easeOutCubic), code().opacity(1, 1)),
   );
 
   yield* waitUntil('highlight code 1');
@@ -215,7 +213,11 @@ export default makeScene2D(function* (view) {
   yield* code().selection(DEFAULT, 0.4);
 
   yield* waitUntil('hide code 2');
-  yield* all(code().restore(0.8), gameScene().restore(1.2));
+  yield* all(
+    code().opacity(0, 0.8),
+    code().position.y(-300, 0.9),
+    gameScene().restore(1.2),
+  );
 
   yield* waitUntil('attack 2');
   cancel(heroineAnimation);
@@ -259,42 +261,41 @@ export default makeScene2D(function* (view) {
   yield* sequence(
     0.4,
     gameScene().position.y(700, 1),
-    all(code().position.y(0, 1, easeOutCubic), code().opacity(1, 1)),
+    all(code().position.y(-100, 1, easeOutCubic), code().opacity(1, 1)),
   );
 
   yield* waitUntil('change code 1');
   yield* code().edit(1.8)`
-    const effect = new BloodSpatter();
-    ${edit(
-      `effect.position`,
-      `effect.globalPosition`,
-    )} = ${edit(`goblinSprite.position`, `goblinSprite.globalPosition`)};
-    scene.add(effect);
-  `;
+const effect = new BloodSpatter();
+${edit(
+  `effect.position`,
+  `effect.globalPosition`,
+)} = ${edit(`goblinSprite.position`, `goblinSprite.globalPosition`)};
+scene.add(effect);`;
 
   yield* waitUntil('change code 2');
-  yield* code().edit(1.8)`
-    const effect = new BloodSpatter();
-    ${edit(`effect.globalPosition`, `effect.position`)} = ${edit(
-    `goblinSprite.globalPosition`,
-    `goblinSprite
-                      .parent()
-                      .localToWorld(goblinSprite.position)`,
-  )};
-    scene.add(effect);
-  `;
+  yield* sequence(
+    0.5,
+    code().edit(1.8)`
+const effect = new BloodSpatter();
+${edit(
+  `effect.globalPosition = goblinSprite.globalPosition;`,
+  `const position = goblinSprite.parent().localToWorld(
+  goblinSprite.position,
+);
+effect.position = position;`,
+)}
+scene.add(effect);`,
+  );
 
   yield* waitUntil('change code 3');
   yield* code().edit(1.8, false)`
-    const effect = new BloodSpatter();
-    effect.position = goblinSprite
-                        .parent()
-                        .${edit(
-                          `localToWorld`,
-                          `localToParent`,
-                        )}(goblinSprite.position);
-    scene.add(effect);
-  `;
+const effect = new BloodSpatter();
+const position = goblinSprite.parent().${edit(`localToWorld`, `localToParent`)}(
+  goblinSprite.position,
+);
+effect.position = position;
+scene.add(effect);`;
 
   yield* waitUntil('hide code 3');
   yield* all(

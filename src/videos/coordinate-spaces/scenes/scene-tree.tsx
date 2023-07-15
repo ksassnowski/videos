@@ -24,19 +24,16 @@ import {
   Blood,
   Control,
   Cursor,
+  GameSceneTree,
   Goblin,
-  Goblin8x8,
   Hero,
-  Hero8x8,
   SceneContainer,
   SceneTree,
   Spear,
-  Spear8x8,
   TransformationRig,
 } from '../components';
 
 export default makeScene2D(function* (view) {
-  const sceneTree = createRef<SceneTree>();
   const sceneContainer = createRef<Layout>();
   const cursor = createRef<Cursor>();
   const hero = createRef<AnimatedSprite>();
@@ -63,45 +60,15 @@ export default makeScene2D(function* (view) {
     }
   }
 
-  const heroIcon = <Hero8x8 scale={3} />;
-  const spearIcon = <Spear8x8 scale={3} />;
-  const goblinIcon = <Goblin8x8 scale={3} />;
+  const sceneTree = (<GameSceneTree opacity={0} />) as SceneTree;
 
   yield view.add(
     <>
-      <SceneTree
-        ref={sceneTree}
-        fill={theme.colors.Gray5}
-        objects={[
-          { id: 'goblin', icon: goblinIcon, label: 'Goblin' },
-          {
-            id: 'hero',
-            icon: heroIcon,
-            label: 'Hero',
-            children: [
-              {
-                id: 'spear',
-                icon: spearIcon,
-                label: 'Spear',
-              },
-            ],
-          },
-        ]}
-        y={-270}
-        x={-360}
-        scale={1.5}
-        opacity={0}
-        zIndex={1}
-      />
-
       <SceneContainer
         ref={sceneContainer}
-        grow={1}
-        lineWidth={6}
-        stroke={theme.colors.Gray3}
-        radius={16}
-        smoothCorners
+        sceneTree={sceneTree}
         scale={0}
+        showAxis
       >
         <Blood ref={blood} position={-400} scale={0} />
         <Goblin ref={goblin} scale={[-8, 8]} position={[600, 70]} />
@@ -155,7 +122,7 @@ export default makeScene2D(function* (view) {
   cancel(goblinAnimation);
 
   yield* waitUntil('show scene tree');
-  yield* sequence(0.1, sceneTree().create(0.6));
+  yield* sceneTree.create(0.6);
 
   yield* waitUntil('highlight objects');
   const pairs: [string, Node][] = [
@@ -166,29 +133,31 @@ export default makeScene2D(function* (view) {
   for (const [id, sprite] of pairs) {
     sprite.save();
     yield* all(
-      sceneTree().highlightNode(id, 1.2),
-      sprite.scale(sprite.scale().scale(1.2), 1),
+      sceneTree.highlightNode(id, 0.7),
+      sprite.scale(sprite.scale().scale(1.4), 0.7),
     );
-    yield* all(sprite.restore(0.6), sceneTree().resetNode(id, 0.6));
+    yield* waitFor(0.2);
+    yield* sprite.restore(0.6);
   }
+  yield* sceneTree.resetHighlight();
 
   yield* waitUntil('highlight spear');
   spear().save();
   yield* all(
-    sceneTree().highlightNode('spear', 0.7),
+    sceneTree.highlightNode('spear', 0.7),
     spear().scale(spear().scale().scale(1.4), 0.7),
   );
-  yield* all(sceneTree().resetNode('spear', 0.6), spear().restore(0.6));
+  yield* spear().restore(0.6);
 
   yield* waitUntil('highlight hero');
   hero().save();
   yield* all(
-    sceneTree().highlightNode('hero', 0.7),
+    sceneTree.highlightNode('hero', 0.7),
     hero().scale(hero().scale().scale(1.4), 0.7),
   );
 
   yield* waitUntil('reset hero');
-  yield* all(sceneTree().resetNode('hero', 0.6), hero().restore(0.6));
+  yield* all(sceneTree.resetHighlight(0.7), hero().restore(0.6));
 
   yield* waitUntil('attack');
   const random = useRandom(42);
@@ -274,7 +243,7 @@ export default makeScene2D(function* (view) {
   yield* waitUntil('hide everything');
   yield* sequence(
     0.08,
-    sceneTree().scale(0, 0.7, easeInBack),
+    sceneTree.scale(0, 0.7, easeInBack),
     heroWrapper().scale(0, 0.7, easeInBack),
     goblin().scale(0, 0.7, easeInBack),
     sceneContainer().scale(0, 0.7, easeInBack),

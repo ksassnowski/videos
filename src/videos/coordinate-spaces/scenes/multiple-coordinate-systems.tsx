@@ -1,14 +1,13 @@
-import { Circle, Rect, makeScene2D } from '@motion-canvas/2d';
-import { Ray } from '@motion-canvas/2d/lib/components';
+import { Circle, Ray, Rect, makeScene2D } from '@motion-canvas/2d';
 import {
   DEFAULT,
-  Vector2,
+  all,
   createRef,
+  easeInBack,
   easeOutBack,
   sequence,
   waitUntil,
 } from '@motion-canvas/core';
-import { all } from '@motion-canvas/core/lib/flow';
 
 import theme from '@theme';
 
@@ -36,7 +35,7 @@ export default makeScene2D(function* (view) {
   const circleLocalCoordinates = createRef<Coordinates>();
   const circleGlobalCoordinates = createRef<Coordinates>();
 
-  const sceneTree = (<RectCircleSceneTree scale={0} />) as SceneTree;
+  const sceneTree = (<RectCircleSceneTree opacity={0} />) as SceneTree;
 
   view.add(
     <>
@@ -141,9 +140,9 @@ export default makeScene2D(function* (view) {
   yield* waitUntil('show grids');
   yield* sequence(
     0.1,
+    scene().gridEnd(0, 1),
     rectGrid().end(1, 1),
     circleGrid().end(1, 1),
-    scene().gridEnd(0, 0.6),
   );
 
   yield* waitUntil('hide grids');
@@ -155,7 +154,7 @@ export default makeScene2D(function* (view) {
   );
 
   yield* waitUntil('show tree');
-  yield* sceneTree.scale(1.5, 0.6, easeOutBack);
+  yield* sceneTree.create(0.6);
 
   yield* waitUntil('show pos');
   yield* sequence(
@@ -171,10 +170,27 @@ export default makeScene2D(function* (view) {
   );
 
   yield* waitUntil('change grids');
-  yield* sequence(0.1, scene().gridEnd(0, 2), rectGrid().end(1, 2));
+  scene().labelText('Local Space');
+  scene().labelColor(theme.colors.Blue1);
+  yield* sequence(
+    0.7,
+    all(scene().gridEnd(0.5, 1), scene().gridStart(0.5, 1)),
+    all(rectGrid().end(0.5, 0).to(1, 1), rectGrid().start(0.5, 0).to(0, 1)),
+    scene().labelScale(1, 0.7, easeOutBack),
+  );
 
   yield* waitUntil('show world space');
-  yield* sequence(0.1, rectGrid().end(0, 1), scene().gridEnd(1, 1.4));
+  yield* sequence(
+    0.1,
+    all(rectGrid().end(0.5, 0.7), rectGrid().start(0.5, 0.7)),
+    all(scene().gridEnd(0.5, 0).to(1, 1), scene().gridStart(0.5, 0).to(0, 1)),
+  );
+
+  yield* waitUntil('change label');
+  yield* all(
+    scene().labelText(' ', 0.7).to('World Space', 0.7),
+    scene().labelColor(DEFAULT, 1),
+  );
 
   yield* waitUntil('show world pos');
   yield* sequence(
@@ -182,6 +198,9 @@ export default makeScene2D(function* (view) {
     absolutePosVector().end(1, 0.7),
     circleGlobalCoordinates().show(),
   );
+
+  yield* waitUntil('hide scene');
+  yield* scene().scale(0, 0.8, easeInBack);
 
   yield* waitUntil('scene end');
 });

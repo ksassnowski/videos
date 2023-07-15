@@ -354,10 +354,7 @@ ${texColor(circlePos.y.toFixed(0), theme.colors.Green1)} \\\\
     sGroup().scale(0, 0.6, easeInBack),
     rGroup().scale(0, 0.6, easeInBack),
     scaledVector().end(0, 0.6),
-    all(
-      demonstrationScene().size([1000, 800], 1.3),
-      demonstrationScene().lineWidth(8, 0.7),
-    ),
+    demonstrationScene().size([1000, 800], 1.3),
   );
 
   yield* waitUntil('scene end');

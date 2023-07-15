@@ -29,6 +29,7 @@ import {
   RectCircleSceneTree,
   RectObject,
   SceneContainer,
+  SceneTree,
   TransformationRig,
   Vector,
 } from '../components';
@@ -48,13 +49,12 @@ export default makeScene2D(function* (view) {
   const rig = createRef<TransformationRig>();
   const cursor = createRef<Cursor>();
 
+  const sceneTree = (<RectCircleSceneTree />) as SceneTree;
   const rectCoordinatesOffset = createSignal(30);
 
   yield view.add(
     <>
-      <SceneContainer ref={scene} scale={0} showAxis>
-        <RectCircleSceneTree position={[-370, -305]} />
-
+      <SceneContainer ref={scene} scale={0} sceneTree={sceneTree} showAxis>
         <Node ref={objectGroup} position={[-200, 150]}>
           <RectObject ref={rect} scale={0} />
 

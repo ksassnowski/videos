@@ -1,11 +1,24 @@
-import { makeScene2D } from '@motion-canvas/2d';
-import { Circle, Latex, Layout, Line } from '@motion-canvas/2d/lib/components';
-import { all, sequence, waitUntil } from '@motion-canvas/core/lib/flow';
-import { easeInBack, easeOutBack } from '@motion-canvas/core/lib/tweening';
-import { Direction, Vector2 } from '@motion-canvas/core/lib/types';
-import { createRef, finishScene } from '@motion-canvas/core/lib/utils';
+import {
+  Circle,
+  Latex,
+  Layout,
+  Line,
+  Ray,
+  Rect,
+  Txt,
+  makeScene2D,
+} from '@motion-canvas/2d';
+import {
+  Vector2,
+  all,
+  createRef,
+  easeInBack,
+  easeOutBack,
+  sequence,
+  waitUntil,
+} from '@motion-canvas/core';
 
-import { texColor } from '@common/utils';
+import { texColor, translate } from '@common/utils';
 
 import theme from '@theme';
 
@@ -14,8 +27,30 @@ import {
   SceneContainerProps,
   SimpleFormula,
   TranslationMatrixFormula,
-  translationMatrixTex,
 } from '../components';
+import { swapNodes } from '../utils';
+
+const matrix2x3aTex = `
+\\begin{bmatrix}
+a & b & c \\\\ 
+d & e & f
+\\end{bmatrix}
+`;
+
+const matrix2x3bTex = `
+\\begin{bmatrix}
+g & h & i \\\\ 
+j & k & l
+\\end{bmatrix}
+`;
+
+const resultMatrixTex = `
+\\begin{bmatrix}
+R_x + P_x \\\\
+R_y + P_y \\\\
+1
+\\end{bmatrix}
+`;
 
 export default makeScene2D(function* (view) {
   const simpleFormula = createRef<Latex>();
@@ -25,6 +60,13 @@ export default makeScene2D(function* (view) {
   const sceneContainers = createRef<Layout>();
   const relativePosScene = createRef<SceneContainer>();
   const relativePosLine = createRef<Line>();
+  const highlightRect = createRef<Rect>();
+  const matrixLabel = createRef<Txt>();
+  const matrix2x3a = createRef<Latex>();
+  const matrix2x3b = createRef<Latex>();
+  const resultMatrix = createRef<Latex>();
+  const line = createRef<Ray>();
+  const notDefinedText = createRef<Txt>();
 
   const position = Vector2.createSignal(0);
   const relativePosition = Vector2.createSignal([100, -50]);
@@ -61,11 +103,73 @@ export default makeScene2D(function* (view) {
     <>
       <SimpleFormula ref={simpleFormula} height={180} />
 
+      <Txt
+        ref={matrixLabel}
+        text={'2D Transformation Matrix'}
+        fontFamily={theme.fonts.mono}
+        fill={theme.colors.Green1}
+        position={[260, -230]}
+        scale={0}
+      />
+
+      <Txt
+        ref={notDefinedText}
+        text={'Not defined'}
+        fontFamily={theme.fonts.mono}
+        fill={theme.colors.Red}
+        fontSize={64}
+        y={-230}
+        scale={0}
+      />
+
+      <Rect
+        ref={highlightRect}
+        stroke={theme.colors.Green1}
+        fill={`${theme.colors.Green1}31`}
+        lineWidth={4}
+        radius={8}
+        zIndex={-1}
+        x={257}
+        size={[390, 320]}
+        smoothCorners
+        scale={0}
+      />
+
+      <Layout alignItems={'center'} layout>
+        <Latex
+          ref={matrix2x3a}
+          tex={texColor(matrix2x3aTex, theme.colors.White)}
+          height={0}
+        />
+        <Latex
+          ref={matrix2x3b}
+          tex={texColor(matrix2x3bTex, theme.colors.White)}
+          height={0}
+        />
+      </Layout>
+
+      <Latex
+        ref={resultMatrix}
+        tex={texColor(`= ${resultMatrixTex}`, theme.colors.White)}
+        height={280}
+        position={200}
+        opacity={0}
+      />
+
+      <Ray
+        ref={line}
+        from={() => matrix2x3a().bottomLeft()}
+        to={() => matrix2x3b().topRight()}
+        lineWidth={16}
+        stroke={theme.colors.Red}
+        end={0}
+      />
+
       <TranslationMatrixFormula
         ref={matrixFormula}
         height={280}
         position={() => simpleFormula().position().add([58, 0])}
-        opacity={0}
+        scale={0}
       />
 
       <Layout ref={sceneContainers} y={180} gap={60} layout>
@@ -145,27 +249,80 @@ export default makeScene2D(function* (view) {
   yield* sequence(0.55, hideScenes(), simpleFormula().position.y(0, 1));
 
   yield* waitUntil('show matrix');
-  yield* all(matrixFormula().opacity(1, 0.7), simpleFormula().opacity(0, 1));
+  yield* sequence(
+    0.75,
+    swapNodes(simpleFormula, matrixFormula),
+    sequence(
+      0.2,
+      highlightRect().scale(1, 0.7, easeOutBack),
+      matrixLabel().scale(1, 0.7, easeOutBack),
+    ),
+  );
 
-  yield* waitUntil('show scenes 2');
-  operatorTex().tex(texColor('\\times', theme.colors.White));
-  sceneLabelTex()
-    .height(100)
-    .margin([-60, 0, 0, 0])
-    .tex(texColor(translationMatrixTex, theme.colors.White));
-  relativePosLine().end(0);
-  relativePosScene().origin(relativePosition);
-  sceneContainers().position([0, 200]);
-  relativePosition([100, -50]);
-  position(0);
-  yield* sequence(0.3, matrixFormula().position.y(-300, 0.8), showScenes());
+  yield* waitUntil('show 2x3');
+  yield* sequence(
+    0.5,
+    all(
+      ...[matrixLabel(), matrixFormula(), highlightRect()].map((node) =>
+        translate(node, [0, 800], 0.6),
+      ),
+    ),
+    matrix2x3a().height(220, 0.7, easeOutBack),
+  );
+  matrixLabel().scale(0);
 
-  yield* waitUntil('move input 2');
-  yield* moveInput();
+  yield* waitUntil('show 2x3 b');
+  yield* matrix2x3b().height(220, 0.7, easeOutBack);
 
-  yield* waitUntil('hide scenes 2');
-  yield* sequence(0.55, hideScenes(), matrixFormula().position.y(0, 1));
+  yield* waitUntil('not defined');
+  yield* all(
+    line().end(1, 0.6),
+    notDefinedText().scale(1, 0.7, easeOutBack),
+    matrix2x3a().opacity(0.3, 0.7),
+    matrix2x3b().opacity(0.3, 0.7),
+  );
+
+  yield* waitUntil('reset');
+  highlightRect().scale(0);
+  yield* sequence(
+    0.3,
+    all(
+      line().end(0, 0.5),
+      notDefinedText().scale(0, 0.5),
+      matrix2x3a().height(0, 0.5),
+      matrix2x3b().height(0, 0.5),
+    ),
+    all(
+      ...[matrixLabel(), matrixFormula(), highlightRect()].map((node) =>
+        translate(node, [0, -800], 0.6),
+      ),
+    ),
+  );
+
+  yield* waitUntil('highlight vector');
+  highlightRect().width(180);
+  highlightRect().position.x(565);
+  yield* highlightRect().scale(1, 0.7, easeOutBack);
+
+  yield* waitUntil('highlight z');
+  yield* all(
+    highlightRect().size([74, 100], 0.7),
+    highlightRect().position.y(100, 0.7),
+  );
+
+  yield* waitUntil('hide highlight');
+  yield* highlightRect().scale(0, 0.6, easeInBack);
+
+  yield* waitUntil('show result');
+  yield* all(
+    matrixFormula().position.y(-170, 0.7),
+    resultMatrix().position.y(100, 0).to(170, 0.7),
+    resultMatrix().opacity(1, 0.7),
+  );
 
   yield* waitUntil('hide formula');
-  yield* matrixFormula().scale(0, 0.8, easeInBack);
+  yield* all(
+    matrixFormula().scale(0, 0.7, easeInBack),
+    resultMatrix().scale(0, 0.7, easeInBack),
+  );
 });

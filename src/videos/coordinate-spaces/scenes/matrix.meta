@@ -18,20 +18,40 @@
       "targetTime": 14.256500190812295
     },
     {
-      "name": "show scenes 2",
-      "targetTime": 15.774381499735942
+      "name": "show 2x3",
+      "targetTime": 31.18494722263431
     },
     {
-      "name": "move input 2",
-      "targetTime": 17.394381499735935
+      "name": "show 2x3 b",
+      "targetTime": 34.09987495069596
     },
     {
-      "name": "hide scenes 2",
-      "targetTime": 24.35542509913518
+      "name": "not defined",
+      "targetTime": 35.57323384430747
+    },
+    {
+      "name": "reset",
+      "targetTime": 37.61309929141791
+    },
+    {
+      "name": "highlight vector",
+      "targetTime": 39.73335930185181
+    },
+    {
+      "name": "highlight z",
+      "targetTime": 44.08369634418243
+    },
+    {
+      "name": "hide highlight",
+      "targetTime": 49.37693150778019
+    },
+    {
+      "name": "show result",
+      "targetTime": 61.255761771429704
     },
     {
       "name": "hide formula",
-      "targetTime": 26.554915450776324
+      "targetTime": 73.55136989394592
     }
   ],
   "seed": 2251120556

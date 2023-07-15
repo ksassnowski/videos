@@ -152,9 +152,8 @@ export default makeScene2D(function* (view) {
     circle().scale(0, 0.6, easeInBack),
     circleCoords().hide(),
     originDot().scale(0, 0.6, easeInBack),
+    scene().gridStart(1, 1.2),
     originCoordinates().hide(),
-    scene().gridStroke(theme.colors.Gray5, 0.7),
-    scene().axisStroke(theme.colors.Gray5, 0.7),
   );
 
   yield* waitUntil('show rect 2');
@@ -179,13 +178,16 @@ export default makeScene2D(function* (view) {
   yield* all(originDot().scale(0, 0.6), transform().end(1, 0.6));
 
   yield* waitUntil('show axis');
-  yield* scene().axisStroke(DEFAULT, 0.7);
+  yield* all(scene().axisStart(0, 1.2), scene().axisEnd(1, 1.2));
 
   yield* waitUntil('rotate rect');
   yield* all(rect().rotation(0, 1));
 
   yield* waitUntil('show grid');
-  yield* scene().gridStroke(DEFAULT, 0.7);
+  yield* all(
+    scene().gridStart(0.5, 0).to(0, 2),
+    scene().gridEnd(0.5, 0).to(1, 2),
+  );
 
   yield* waitUntil('position rect');
   yield* rect().position.x(200, 0.7);
@@ -219,7 +221,7 @@ export default makeScene2D(function* (view) {
     transform().scale(0, 0.7, easeInBack),
     rectCoords2().hide(),
     rect().scale(0, 0.8, easeInBack),
-    scene().scale(0, 0.8),
+    scene().size([1000, 800], 1),
   );
 
   yield* waitUntil('scene end');

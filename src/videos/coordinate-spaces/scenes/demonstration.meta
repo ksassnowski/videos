@@ -3,31 +3,31 @@
   "timeEvents": [
     {
       "name": "show scaling scene",
-      "targetTime": 0.949133203181559
+      "targetTime": 1.337419030087715
     },
     {
       "name": "show scaling",
-      "targetTime": 1.549133203181559
+      "targetTime": 1.9374190300877148
     },
     {
       "name": "show rotation",
-      "targetTime": 2.349133203181559
+      "targetTime": 2.7374190300877146
     },
     {
       "name": "show translation",
-      "targetTime": 3.549133203181559
+      "targetTime": 3.9374190300877148
     },
     {
       "name": "show formula",
-      "targetTime": 5.149133203181558
+      "targetTime": 5.5374190300877135
     },
     {
       "name": "hide scene",
-      "targetTime": 15.785918926410625
+      "targetTime": 16.17420475331678
     },
     {
       "name": "scene end",
-      "targetTime": 16.896377510350856
+      "targetTime": 17.284663337257015
     }
   ],
   "seed": 1756463315
